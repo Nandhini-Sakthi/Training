@@ -1,8 +1,8 @@
 ﻿using System;
 int n = new Random ().Next (1, 101);
 int g;
-Console.Write ("Enter your guess:");
 for (; ; ) {
+   Console.Write ("Enter your guess:");
    g = int.Parse (Console.ReadLine ());
    if (g > n)
       Console.WriteLine ("Your guess is too high.");
@@ -14,10 +14,11 @@ for (; ; ) {
       Console.WriteLine ("Your guessed correctly.");
       break;
    }
+}
    
 
 
-}
+
 
 
 
