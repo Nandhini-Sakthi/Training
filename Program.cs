@@ -1,23 +1,22 @@
 ﻿using System;
-int n = new Random ().Next (1, 101);
-int g;
+int random_num = new Random ().Next (1, 101);
 for (; ; ) {
    Console.Write ("Enter your guess:");
-   g = int.Parse (Console.ReadLine ());
-   if (g > n)
-      Console.WriteLine ("Your guess is too high.");
-
-   else if (g < n)
-      Console.WriteLine ("Your guess is too low.");
-
+   bool var = int.TryParse (Console.ReadLine (), out int guess_num);
+   if (var == false)
+      Console.WriteLine ("Invalid guess");
    else {
-      Console.WriteLine ("Your guessed correctly.");
-      break;
+      if (guess_num > random_num)
+         Console.WriteLine ("Your guess is too high.");
+      else if (guess_num < random_num)
+         Console.WriteLine ("Your guess is too low.");
+      else {
+         Console.WriteLine ("Your guessed correctly.");
+         break;
+      }
    }
 }
    
-
-
 
 
 
