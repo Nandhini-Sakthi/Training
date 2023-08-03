@@ -18,16 +18,15 @@ foreach (string word in wordslist) {
       total = total + point;
    }
 }
-Array.Sort (pointArr, words, 0, index, Comparer<int>.Create ((a, b) => b.CompareTo (a)));
+Array.Sort (pointArr, words,0, index, Comparer<int>.Create ((a, b) => b.CompareTo (a)));
 for (int i = 0; i < index; i++) {
    if (pointArr[i] == 15) {
       Console.ForegroundColor = ConsoleColor.Green;
 
    }
 
-   Console.WriteLine ($"{pointArr[i],4}. {words[i]}");
+   Console.WriteLine ($"{pointArr[i]}. {words[i]}");
    Console.ResetColor ();
 }
-
 Console.WriteLine ("----");
 Console.WriteLine ($"{total} totat points");
