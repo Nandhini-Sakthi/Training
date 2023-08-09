@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq.Expressions;
 Console.Write ("Enter a decimal number: ");
-int decimalnum = int.Parse (Console.ReadLine());
+bool var = int.TryParse (Console.ReadLine(),out int decimalnum);
 string hexadecimalnum = decimalnum.ToString("X");
-Console.WriteLine ($"Hexadecimal: {hexadecimalnum}");
+Console.WriteLine ($"Hexadecimal:{decimalnum:X}");
 string binary = "";
 while (decimalnum > 0) {
    int remainder = decimalnum % 2;
-   binary= Convert.ToString (remainder) + binary;
+   binary= remainder.ToString() + binary;
    decimalnum /= 2; }
  Console.WriteLine ($"Binary:{binary}");
