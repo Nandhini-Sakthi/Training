@@ -1,11 +1,20 @@
 ﻿using System;
-Console.Write ("Enter a decimal number: ");
-bool var = int.TryParse (Console.ReadLine(),out int decimalnum);
-string hexadecimalnum = decimalnum.ToString("X");
-Console.WriteLine ($"Hexadecimal:{decimalnum:X}");
-string binary = "";
-while (decimalnum > 0) {
-   int remainder = decimalnum % 2;
-   binary= remainder.ToString() + binary;
-   decimalnum /= 2; }
- Console.WriteLine ($"Binary:{binary}");
+Console.Write ("Enter a positive number: ");
+bool var = int.TryParse (Console.ReadLine (), out int number);
+if (number == 1 || number == 0)  
+   Console.Write ("neither prime number nor composite");
+else if (number == 2)
+   Console.Write ("a prime number");
+else  {
+   for (int i = 2; i < number; i++) {
+      if (number % i == 0) {
+         Console.WriteLine (" not prime");
+         break;
+      }
+      else {
+         Console.WriteLine ("prime");
+         break;
+      }
+
+   }
+}
