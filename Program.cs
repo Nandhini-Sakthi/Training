@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime;
-
 Console.Write ("Enter the first number: ");
 int a = int.Parse (Console.ReadLine ());
 Console.Write ("Enter the second number: ");
