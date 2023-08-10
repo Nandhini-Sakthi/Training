@@ -1,13 +1,16 @@
 ﻿using System;
 for (; ; ) {
    Console.Write ("Enter a decimal number: ");
-   int.TryParse (Console.ReadLine (), out int decimalnum);
-   Console.WriteLine ($"Hexadecimal:{decimalnum:X}");
-   string binary = "";
-   while (decimalnum > 0) {
-      int remainder = decimalnum % 2;
-      binary = remainder.ToString () + binary;
-      decimalnum /= 2;
+   if (int.TryParse (Console.ReadLine (), out int decimalnum) && decimalnum>0) {
+      Console.WriteLine ($"Hexadecimal:{decimalnum:X}");
+      string binary = "";
+      while (decimalnum > 0) {
+         int remainder = decimalnum % 2;
+         binary = remainder.ToString () + binary;
+         decimalnum /= 2;
+      }
+      Console.WriteLine ($"Binary:{binary}");
    }
-   Console.WriteLine ($"Binary:{binary}");
+   else
+      Console.WriteLine ("enter valid number");
 }
