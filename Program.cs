@@ -18,19 +18,13 @@ for (; ; ) {
          hasSpecial = true;
    }
    bool var = hasLength && hasDigit && hasLower && hasUpper && hasSpecial;
-   if (var == true) {
-      Console.WriteLine ("Password is strong.");
-   } else {
+   if (var == true) Console.WriteLine ("Password is strong.");
+   else {
       Console.WriteLine ("Password is not strong.");
-      if(hasLength== false)
-         Console.WriteLine ("Password should be at least 6 characters long.");
-      if (hasDigit== false)
-         Console.WriteLine ("Password should contain at least one digit.");
-      if (hasLower== false)
-         Console.WriteLine ("Password should contain at least one lowercase character.");
-      if (hasUpper== false)
-         Console.WriteLine ("Password should contain at least one uppercase character.");
-      if (hasSpecial== false)
-         Console.WriteLine ("Password should contain at least one special character (!@#$%^&*()-+).");
+      if (hasLength == false) Console.WriteLine ("Password should be at least 6 characters long.");
+      if (hasDigit == false) Console.WriteLine ("Password should contain at least one digit.");
+      if (hasLower == false) Console.WriteLine ("Password should contain at least one lowercase character.");
+      if (hasUpper == false) Console.WriteLine ("Password should contain at least one uppercase character.");
+      if (hasSpecial == false) Console.WriteLine ("Password should contain at least one special character (!@#$%^&*()-+).");
    }
 }
