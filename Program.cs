@@ -4,10 +4,8 @@ else  Console.WriteLine ("Invalid Input");
 static int NthArmstrongNumber (int num) {
    int count = 0, i = 0;
    if (num < 10) return num;
-   else {
-      while (count < num)
-         if (IsArmstrong (++i)) count++;
-   }
+   while (count < num)
+      if (IsArmstrong (++i)) count++;
    return i;
 }
 static bool IsArmstrong (int i) {
