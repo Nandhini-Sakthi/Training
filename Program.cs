@@ -3,13 +3,8 @@ using System.Linq;
 for (; ; ) {
    Console.Write ("Enter the word:");
    string word = Console.ReadLine ().ToLower ();
-   if (!Isogram (word))
-      Console.WriteLine (word + " is not an isogram.");
-   else Console.WriteLine (word + " is an isogram.");
+   var res = (!Isogram (word)) ? word + " is not an isogram." : word + " is an isogram.";
+   Console.WriteLine (res);
 }
-bool Isogram (string word) {
-   if (word.Distinct ().Count () == word.Length)
-      return true;
-   else
-      return false;
-}
+
+bool Isogram (string word) => word.Distinct ().Count () == word.Length;
