@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Text;
+for (; ; ) {
+   Console.Write ("Enter the input string:");
+   string input = Console.ReadLine ().ToLower ();
+   string reducedString = ReduceString (input);
+   Console.WriteLine ("Output:" + reducedString);
+}
 
 string ReduceString(string input) {
    StringBuilder result = new StringBuilder ();
@@ -9,10 +15,4 @@ string ReduceString(string input) {
       else result.Append (c);
    }
    return result.ToString ();
-}
-for (; ; ) {
-   Console.Write ("Enter the input string:");
-   string input = Console.ReadLine ().ToLower ();
-   string reducedString = ReduceString (input);
-   Console.WriteLine ("Output:" + reducedString);
 }
