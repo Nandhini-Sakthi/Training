@@ -1,7 +1,6 @@
 ﻿string[] wordslist = File.ReadAllLines ("D:\\OneDrive - Trumpf Metamation Pvt Ltd\\words.txt");
 char[] letters = { 'U', 'X', 'A', 'L', 'T', 'N', 'E' };
 Dictionary<string, int> wordPoints = new Dictionary<string, int> ();
-int point = 0;
 
 foreach (string word in wordslist) {
    if (word.Length >= 4 && word.Contains (letters[0]) && word.All (letters.Contains))
