@@ -24,14 +24,15 @@ namespace Training {
          while (userinput != "c") {
             // The computer makes a guess in the middle of the current range
             computerGuess = (min + max) / 2;
-            Console.WriteLine ($"Is your number {computerGuess} ?((h)igh / (l)ow / (c)orrect): ");
+            Console.Write ($"Is your number {computerGuess} ?((h)igh / (l)ow / (c)orrect): ");
             userinput = Console.ReadLine ().ToLower ();
             if (userinput == "h")
                min = computerGuess; // Adjust the range according to the userinput
             else if (userinput == "l")
                max = computerGuess; // Adjust the range according to the userinput
-            else
+            else if (userinput == "c")
                Console.WriteLine ($"{computerGuess} is your guessed number.");
+            else Console.WriteLine ("Invalid input");
          }
       }
       #endregion
