@@ -21,18 +21,28 @@ namespace Training {
          int max = 100;
          int computerGuess;
          string userinput = "";
-         while (userinput != "c") {
+         while (true) { // Infinite loop
             // The computer makes a guess in the middle of the current range
             computerGuess = (min + max) / 2;
             Console.Write ($"Is your number {computerGuess} ?((h)igh / (l)ow / (c)orrect): ");
             userinput = Console.ReadLine ().ToLower ();
-            if (userinput == "h")
-               min = computerGuess; // Adjust the range according to the userinput
-            else if (userinput == "l")
-               max = computerGuess; // Adjust the range according to the userinput
-            else if (userinput == "c")
+            if (userinput == "h") {
+               min = computerGuess + 1; // Adjust the range according to the user input
+               if (min > max) {
+                  Console.WriteLine ("Invalid guess. Your guess can't be higher than 100.");
+                  break;
+               }
+            } else if (userinput == "l") {
+               max = computerGuess - 1; // Adjust the range according to the user input
+               if (max < min) {
+                  Console.WriteLine ("Invalid guess. Your guess can't be lower than 1.");
+                  break;
+               }
+            } else if (userinput == "c") {
                Console.WriteLine ($"{computerGuess} is your guessed number.");
-            else Console.WriteLine ("Invalid input");
+               break; // Exit the loop when the user input is "c"
+            } else
+               Console.WriteLine ("Invalid input");
          }
       }
       #endregion
