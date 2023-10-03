@@ -14,38 +14,33 @@ namespace Training {
    /// <summary>String permutations </summary>
    internal class Program {
       #region Methods ---------------------------------------------
+
+      public static List<string> result = new List<string> ();
       /// <summary>Getting input from the user </summary>
       static void Main () {
          Console.Write ("Enter the input:");
          string input = Console.ReadLine ();
-         List<string> permutations = Permute (input);
-         Console.Write ("Output:");
+         Permute (input);
+         Console.Write ("Output: \n");
          //print each and every element in the list
-         foreach (string permutation in permutations) {
-           Console.WriteLine (permutation);
-         }
+         foreach (string permutation in result)
+            Console.WriteLine (permutation);
       }
       /// <summary>input permutations</summary>
       /// <param name="str">input</param>
-      /// <returns>result</returns>
+      static void Permute (string str) => PermuteHelper (str.ToCharArray (), 0, str.Length - 1);
 
-      static List<string> Permute (string str) {
-         List<string> result = new List<string> ();
-         PermuteHelper (str.ToCharArray (), 0, str.Length - 1, result);
-         return result;
-      }
       /// <summary>permute the input using swap</summary>
       /// <param name="strArray"> char array of input</param>
       /// <param name="left">select element based on index</param>
       /// <param name="right">select element based on index</param>
-      /// <param name="result">empty list</param>
-      static void PermuteHelper (char[] strArray, int left, int right, List<string> result) {
-         if (left == right) {
+      static void PermuteHelper (char[] strArray, int left, int right) {
+         if (left == right)
             result.Add (new string (strArray));//add the permuted output to the list
-         } else {
+         else {
             for (int i = left; i <= right; i++) {
                Swap (ref strArray[left], ref strArray[i]);//swapping the letters based on indecise
-               PermuteHelper (strArray, left + 1, right, result);//calling the function again
+               PermuteHelper (strArray, left + 1, right);//calling the function again
                Swap (ref strArray[left], ref strArray[i]); //swapping the letters based on indecise
             }
          }
@@ -54,7 +49,8 @@ namespace Training {
       /// <param name="a">char</param>
       /// <param name="b">char</param>
       static void Swap (ref char a, ref char b) {
-         (a, b) = (b, a);//swapping the letters using tuples
+         char temp = a;
+         a = b; b = temp;//swapping the letters
       }
       #endregion
 
