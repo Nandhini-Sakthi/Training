@@ -17,15 +17,12 @@ namespace Training {
       static void Main () {
          Console.WriteLine ("Welcome to the Guessing Game!");
          Console.WriteLine ("Think of a number between 1 and 100, and I will try to guess it.");
-         int min = 1;
-         int max = 100;
-         int computerGuess;
-         string userinput = "";
+         int min = 1, max = 100, computerGuess;
          while (true) { // Infinite loop
             // The computer makes a guess in the middle of the current range
             computerGuess = (min + max) / 2;
             Console.Write ($"Is your number {computerGuess} ?((h)igh / (l)ow / (c)orrect): ");
-            userinput = Console.ReadLine ().ToLower ();
+            string userinput = Console.ReadLine ().ToLower ();
             if (userinput == "h") {
                min = computerGuess + 1; // Adjust the range according to the user input
                if (min > max) {
