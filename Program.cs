@@ -9,6 +9,8 @@
 // --------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.Text;
+
 namespace Training {
    #region Program ------------------------------------------------------------------------------
    /// <summary>String permutations </summary>
@@ -19,12 +21,12 @@ namespace Training {
       /// <summary>Getting input from the user </summary>
       static void Main () {
          Console.Write ("Enter the input:");
-         string input = Console.ReadLine ();
-         Permute (input);
+         Permute (Console.ReadLine ()!);
          Console.Write ("Output: \n");
          //print each and every element in the list
          foreach (string permutation in result)
             Console.WriteLine (permutation);
+         Console.WriteLine ($"Number of permuted elements {result.Count}");//display count of the  permuted elements
       }
       /// <summary>input permutations</summary>
       /// <param name="str">input</param>
@@ -49,8 +51,10 @@ namespace Training {
       /// <param name="a">char</param>
       /// <param name="b">char</param>
       static void Swap (ref char a, ref char b) {
-         char temp = a;
-         a = b; b = temp;//swapping the letters
+         //char temp = a;
+         //a = b; b = temp;
+         //swapping the letters
+         (a, b) = (b, a);
       }
       #endregion
 
