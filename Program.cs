@@ -37,7 +37,7 @@ namespace Training {
          char currentWinner = ' ';
          int maxVotes = 0;
          foreach (var kvp in voteCount) {
-            if (kvp.Value >= maxVotes || (kvp.Value == maxVotes && kvp.Key < currentWinner)) {//find which char has the most votes.
+            if (kvp.Value > maxVotes) {//find which char has the most votes.
                currentWinner = kvp.Key;
                maxVotes = kvp.Value;
             }
