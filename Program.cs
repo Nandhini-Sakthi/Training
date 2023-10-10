@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Training {
    #region Program ------------------------------------------------------------------------------
@@ -27,23 +28,17 @@ namespace Training {
       /// <param name="winner">letter with maximum votes</param>
       /// <param name="votes">votes</param>
       static void FindWinner (string input, out char winner, out int votes) {
-         Dictionary<char, int> voteCount = new Dictionary<char, int> ();//store character and votes.
+         // Store character and votes.
+         Dictionary<char, int> voteCount = new Dictionary<char, int> ();
          foreach (char c in input.ToLower ()) {
             if (Char.IsLetter (c)) {
                if (voteCount.ContainsKey (c)) voteCount[c]++;
                else voteCount[c] = 1;
             }
          }
-         char currentWinner = ' ';
-         int maxVotes = 0;
-         foreach (var kvp in voteCount) {
-            if (kvp.Value > maxVotes) {//find which char has the most votes.
-               currentWinner = kvp.Key;
-               maxVotes = kvp.Value;
-            }
-         }
-         winner = currentWinner;
-         votes = maxVotes;
+         var result = voteCount.OrderByDescending (kvp => kvp.Value).FirstOrDefault ();
+         winner = result.Key;
+         votes = result.Value;
       }
       #endregion
    }
