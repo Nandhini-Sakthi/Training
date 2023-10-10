@@ -29,13 +29,9 @@ namespace Training {
       /// <param name="votes">votes</param>
       static void FindWinner (string input, out char winner, out int votes) {
          // Store character and votes.
-         Dictionary<char, int> voteCount = new Dictionary<char, int> ();
-         foreach (char c in input.ToLower ()) {
-            if (Char.IsLetter (c)) {
-               if (voteCount.ContainsKey (c)) voteCount[c]++;
-               else voteCount[c] = 1;
-            }
-         }
+         Dictionary<char, int> voteCount = new ();
+         foreach (char c in input.ToLower ()) 
+            if (Char.IsLetter (c))  voteCount[c] = voteCount.TryGetValue (c, out int count) ? count + 1 : 1;
          var result = voteCount.OrderByDescending (kvp => kvp.Value).FirstOrDefault ();
          winner = result.Key;
          votes = result.Value;
