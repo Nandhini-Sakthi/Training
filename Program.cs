@@ -12,33 +12,35 @@ using System;
 using System.Linq;
 namespace Training {
    #region Program ------------------------------------------------------------------------------
-   /// <summary> Sort and swap special character </summary>
+   /// <summary>Sort and swap special character</summary>
    internal class Program {
       #region Methods ---------------------------------------------
-      /// <summary> Getting inputs from user </summary>
+      /// <summary>Getting inputs from user</summary>
+
       static void Main () {
          // Getting character from the user.
          Console.Write ("Enter the character array: ");
-         char[] A = Console.ReadLine ()!.ToCharArray ();
+         char[] a = Console.ReadLine ().ToCharArray ();
          // Getting special character to swap from the user.
          Console.Write ("Enter the special character:");
-         string S = Console.ReadLine ()!;
+         string s = Console.ReadLine ();
          // Getting the sorting order from the user. 
          Console.Write ("Do you want to sort the character array in decending order: (y)es or (n)o: ");
          ConsoleKeyInfo consoleKey = Console.ReadKey ();
          ConsoleKey sortOrder = consoleKey.Key;
          if (sortOrder == ConsoleKey.Y)
-            Console.Write ($"\nOutput:{SortWithSpecialChar (A, S, "descending")}");
+            Console.Write ($"\nOutput:{SortWithSpecialChar (a, s, "descending")}");
          else if (sortOrder == ConsoleKey.N)
-            Console.Write ($"\nOutput:{SortWithSpecialChar (A, S)}");
+            Console.Write ($"\nOutput:{SortWithSpecialChar (a, s)}");
          else Console.WriteLine ("Invalid input key.");
       }
-      /// <summary> Sort the character array with special character </summary>
-      /// <param name="A"> Character array </param>
-      /// <param name="S"> Special character </param>
-      /// <param name="Order"> Order for sorting the character </param>
-      /// <returns> Sorted character </returns>
-      static string SortWithSpecialChar (char[] a, string s, string Order = "ascending") {
+      /// <summary>Sort the character array with special character</summary>
+      /// <param name="a">Character array</param>
+      /// <param name="s">Special character</param>
+      /// <param name="order">Order for sorting the character</param>
+      /// <returns>Sorted character</returns>
+
+      static string SortWithSpecialChar (char[] a, string s, string order = "ascending") {
          // This will handle if the user inputs an empty character.
          if (a == null || a.Length == 0) return "Input array is empty.";
          string output = "", splChar = "";
@@ -48,12 +50,12 @@ namespace Training {
             else splChar += c;
          }
          // Sort the output based on the user input.
-         output = (Order.ToLower () == "descending")
+         output = (order.ToLower () == "descending")
           ? new string (output.OrderByDescending (c => c).ToArray ())
           : new string (output.OrderBy (c => c).ToArray ());
          // Join the output and remainingchar.
          string sortedChar = output + splChar;
-         return string.Join (",", sortedChar.ToCharArray ());
+         return string.Join (',', sortedChar.ToCharArray ());
       }
       #endregion
    }
