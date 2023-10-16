@@ -15,42 +15,40 @@ namespace Training {
       #region Methods ---------------------------------------------
       /// <summary>Getting input from the user</summary>
       /// <param name="args">arguments</param>
+      
       static void Main (string[] args) {
          Console.Write ("Enter the amount: ");
-         int x = GetValidIntegerInput ();
+         int x = GetInput ();
          Console.Write ("Enter the price of a chocolate: ");
-         int p = GetValidIntegerInput ();
+         int p = GetInput ();
          Console.Write ("Enter the number of wrappers needed for a chocolate: ");
-         int w = GetValidIntegerInput ();
-         CalculateChocolates (x, p, w, out int c, out int balanceMoney, out int balanceWrappers);
-         Console.WriteLine ($"Output: C = {c}, X = {balanceMoney}, W = {balanceWrappers}");
+         int w = GetInput ();
+         CalculateChocolates (x, p, w, out int chocolates, out int balance, out int balanceWrappers);
+         Console.WriteLine ($"Output: C = {chocolates}, X = {balance}, W = {balanceWrappers}");
       }
       /// <summary>Checking the input is integer or not</summary>
       /// <returns>Integer value</returns>
-      static int GetValidIntegerInput () {
+     
+      static int GetInput () {
          int value;
          while (!int.TryParse (Console.ReadLine (), out value))
-            Console.Write ("Invalid input. Please enter a valid integer: ");
+            Console.Write ("Invalid input. Please enter a valid integer.");
          return value;
       }
       /// <summary>Calculating no of chocolate can buy with this money,remaining money,remaining wrappers</summary>
-      /// <param name="x">The amount user having</param>
-      /// <param name="p">Price of a chocolate</param>
-      /// <param name="w">No of wrappers can exchange with a chocolate</param>
-      /// <param name="c">No of chocolate can buy with the money</param>
-      /// <param name="remainingMoney">Remaining amount after buying chocolate</param>
-      /// <param name="remainingWrappers">Remaining wrappers after buying chocolate</param>
-      static void CalculateChocolates (int x, int p, int w, out int c, out int balanceMoney, out int balanceWrappers) {
-         c = x / p; // Initial chocolates bought with money
-         balanceMoney = x % p; // Remaining money after buying initial chocolates
-         balanceWrappers = c; // Initial wrappers from the chocolates bought
-         // Continue as long as you have enough wrappers to exchange for more chocolates
-         while (balanceWrappers >= w) {
-            // Calculate additional chocolates obtained from exchanging wrappers
-            c += balanceWrappers / w;
-            // Calculate wrappers left after exchange
-            balanceWrappers = c % w;
-         }
+      /// <param name="money">The amount user having</param>
+      /// <param name="price">Price of a chocolate</param>
+      /// <param name="wrappers">No of wrappers can exchange with a chocolate</param>
+      /// <param name="chocolates">No of chocolate can buy with the money</param>
+      /// <param name="balance">Remaining amount after buying chocolate</param>
+      /// <param name="balanceWrappers">Remaining wrappers after buying chocolate</param>
+ 
+      static void CalculateChocolates (int money, int price, int wrappers, out int chocolates, out int balance, out int balanceWrappers) {
+         chocolates = money / price; // Initial chocolates bought with money
+         balance = money % price; // Remaining money after buying initial chocolates
+         balanceWrappers = chocolates;
+         chocolates += balanceWrappers / wrappers; // Add the chocolates obtained from wrappers to the total count
+         balanceWrappers = chocolates % wrappers;
       }
       #endregion
    }
