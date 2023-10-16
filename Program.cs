@@ -31,13 +31,11 @@ list.RemoveAt (0);
 list.RemoveAt (1);
 list.Display ();
 
-
 /// <summary> Create a class  </summary>
 /// <typeparam name="T"> Datatype of the list </typeparam>
 public class MyList<T> {
    private T[] mArray;
    private int mCount;
-
    /// <summary> Creating a Constructor for initializing the values </summary>
    public MyList () {
       // Initialize the array capacity as 4. 
@@ -46,10 +44,8 @@ public class MyList<T> {
    }
    /// <summary> Counting the elememt in the list </summary>
    public int Count => mCount;
-
    /// <summary> Calculating capacity of the array </summary>
    public int Capacity => mArray.Length;
-
    /// <summary> Set and return the value based on the index </summary>
    /// <param name="index"> Index to be change </param>
    /// <returns> Changed value of the index  </returns>
