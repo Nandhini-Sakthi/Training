@@ -4,7 +4,8 @@
 // ------------------------------------------------------------------------
 // Program.cs
 // SORT AND SWAP SPECIAL CHARACTERS 
-// Given a character array A, along with special character S and sort order O (default order is Ascending), print the sorted array by keeping the elements matching S to the last of the array. 
+// Given a character array A, along with special character S and sort order O (default order is Ascending)
+// Print the sorted array by keeping the elements matching S to the last of the array.
 // For example, Input=([a, b, c, a, c, b, d], a, “descending”) ;Output=d, c, c, b, b, a, a .
 // --------------------------------------------------------------------------------------------
 using System;
@@ -37,21 +38,21 @@ namespace Training {
       /// <param name="S"> Special character </param>
       /// <param name="Order"> Order for sorting the character </param>
       /// <returns> Sorted character </returns>
-      static string SortWithSpecialChar (char[] A, string S, string Order = "ascending") {
+      static string SortWithSpecialChar (char[] a, string s, string Order = "ascending") {
          // This will handle if the user inputs an empty character.
-         if (A == null || A.Length == 0) return "Input array is empty.";
-         string output = "", remainingChar = "";
-         // Split the char array from the special character and stores it in output and store the special character in remainingchar.
-         foreach (char c in A) {
-            if (c != S[0]) output += c;
-            else remainingChar += c;
+         if (a == null || a.Length == 0) return "Input array is empty.";
+         string output = "", splChar = "";
+         // Split the char array from the special character and stores it in output and store the special character in specialchar.
+         foreach (char c in a) {
+            if (c != s[0]) output += c;
+            else splChar += c;
          }
          // Sort the output based on the user input.
          output = (Order.ToLower () == "descending")
           ? new string (output.OrderByDescending (c => c).ToArray ())
           : new string (output.OrderBy (c => c).ToArray ());
          // Join the output and remainingchar.
-         string sortedChar = output + remainingChar;
+         string sortedChar = output + splChar;
          return string.Join (",", sortedChar.ToCharArray ());
       }
       #endregion
