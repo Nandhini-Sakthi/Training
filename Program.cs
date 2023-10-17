@@ -15,7 +15,6 @@ namespace Training {
       #region Methods ---------------------------------------------
       /// <summary>Getting input from the user</summary>
       /// <param name="args">arguments</param>
-      
       static void Main (string[] args) {
          Console.Write ("Enter the amount: ");
          int x = GetInput ();
@@ -26,15 +25,16 @@ namespace Training {
          CalculateChocolates (x, p, w, out int chocolates, out int balance, out int balanceWrappers);
          Console.WriteLine ($"Output: C = {chocolates}, X = {balance}, W = {balanceWrappers}");
       }
+
       /// <summary>Checking the input is integer or not</summary>
       /// <returns>Integer value</returns>
-     
       static int GetInput () {
          int value;
          while (!int.TryParse (Console.ReadLine (), out value))
             Console.Write ("Invalid input. Please enter a valid integer.");
          return value;
       }
+
       /// <summary>Calculating no of chocolate can buy with this money,remaining money,remaining wrappers</summary>
       /// <param name="money">The amount user having</param>
       /// <param name="price">Price of a chocolate</param>
@@ -42,7 +42,6 @@ namespace Training {
       /// <param name="chocolates">No of chocolate can buy with the money</param>
       /// <param name="balance">Remaining amount after buying chocolate</param>
       /// <param name="balanceWrappers">Remaining wrappers after buying chocolate</param>
- 
       static void CalculateChocolates (int money, int price, int wrappers, out int chocolates, out int balance, out int balanceWrappers) {
          chocolates = money / price; // Initial chocolates bought with money
          balance = money % price; // Remaining money after buying initial chocolates
