@@ -16,37 +16,52 @@ namespace Training {
    internal class Program {
       #region Methods ---------------------------------------------
       /// <summary>Getting inputs from user</summary>
-
       static void Main () {
          // Getting character from the user.
-         Console.Write ("Enter the character array: ");
-         char[] a = Console.ReadLine ().ToCharArray ();
+         char[] a = GetInput ("Enter the letters: ").ToCharArray ();
          // Getting special character to swap from the user.
-         Console.Write ("Enter the special character:");
-         string s = Console.ReadLine ();
+         char s = char.Parse (GetInput ("Enter the special character: "));
          // Getting the sorting order from the user. 
-         Console.Write ("Do you want to sort the character array in decending order: (y)es or (n)o: ");
-         ConsoleKeyInfo consoleKey = Console.ReadKey ();
-         ConsoleKey sortOrder = consoleKey.Key;
-         if (sortOrder == ConsoleKey.Y)
-            Console.Write ($"\nOutput:{SortWithSpecialChar (a, s, "descending")}");
-         else if (sortOrder == ConsoleKey.N)
-            Console.Write ($"\nOutput:{SortWithSpecialChar (a, s)}");
-         else Console.WriteLine ("Invalid input key.");
+         while (true) {
+            Console.Write ("Do you want to sort the character array in decending order: (y)es or (n)o: ");
+            ConsoleKeyInfo consoleKey = Console.ReadKey ();
+            ConsoleKey sortOrder = consoleKey.Key;
+            if (sortOrder == ConsoleKey.Y) {
+               Console.Write ($"\nOutput: {SortWithSpecialChar (a, s, "descending")}");
+               break;
+            } else if (sortOrder == ConsoleKey.N) {
+               Console.Write ($"\nOutput: {SortWithSpecialChar (a, s)}");
+               break;
+            } else Console.WriteLine ("\nInvalid key. Please enter y or n.");
+         }
       }
+
+      /// <summary>Provide valid input</summary>
+      /// <param name="prompt">Comment for the user</param>
+      /// <returns>Valid input</returns>
+      static string GetInput (string prompt) {
+         string result;
+         while (true) {
+            Console.Write (prompt);
+            string input = Console.ReadLine ();
+            if (!string.IsNullOrWhiteSpace (input) && input.All (char.IsLetter)) {
+               result = input;
+               break;
+            } else Console.WriteLine ("Invalid input. Please enter alphabets only and make sure it's not empty.");
+         }
+         return result;
+      }
+
       /// <summary>Sort the character array with special character</summary>
       /// <param name="a">Character array</param>
       /// <param name="s">Special character</param>
       /// <param name="order">Order for sorting the character</param>
       /// <returns>Sorted character</returns>
-
-      static string SortWithSpecialChar (char[] a, string s, string order = "ascending") {
-         // This will handle if the user inputs an empty character.
-         if (a == null || a.Length == 0) return "Input array is empty.";
+      static string SortWithSpecialChar (char[] a, char s, string order = "ascending") {
          string output = "", splChar = "";
          // Split the char array from the special character and stores it in output and store the special character in specialchar.
          foreach (char c in a) {
-            if (c != s[0]) output += c;
+            if (c != s) output += c;
             else splChar += c;
          }
          // Sort the output based on the user input.
@@ -54,8 +69,8 @@ namespace Training {
           ? new string (output.OrderByDescending (c => c).ToArray ())
           : new string (output.OrderBy (c => c).ToArray ());
          // Join the output and remainingchar.
-         string sortedChar = output + splChar;
-         return string.Join (',', sortedChar.ToCharArray ());
+         output += splChar;
+         return string.Join (", ", output.ToCharArray ());
       }
       #endregion
    }
