@@ -31,7 +31,7 @@ namespace Training {
       static int GetInput () {
          int value;
          while (!int.TryParse (Console.ReadLine (), out value))
-            Console.Write ("Invalid input. Please enter a valid integer.");
+            Console.Write ("Invalid input.Please enter a valid integer.");
          return value;
       }
 
@@ -45,8 +45,7 @@ namespace Training {
       static void CalculateChocolates (int money, int price, int wrappers, out int chocolates, out int balance, out int balanceWrappers) {
          chocolates = money / price; // Initial chocolates bought with money
          balance = money % price; // Remaining money after buying initial chocolates
-         balanceWrappers = chocolates;
-         chocolates += balanceWrappers / wrappers; // Add the chocolates obtained from wrappers to the total count
+         chocolates += chocolates / wrappers; // Add the chocolates obtained from wrappers to the total count
          balanceWrappers = chocolates % wrappers;
       }
       #endregion
