@@ -11,16 +11,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 // Reading all letter in the wordlist.
-string wordsList = File.ReadAllText ("D:\\OneDrive - Trumpf Metamation Pvt Ltd\\words.txt");
+string wordsList = File.ReadAllText ("D:/OneDrive - Trumpf Metamation Pvt Ltd/words.txt");
 Dictionary<char, int> output = new ();
-foreach (char ch in wordsList) {
-   if (ch >= 'A' && ch <= 'Z') {
-      // Initialize count to 1 for a new character
-      if (!output.ContainsKey (ch)) output[ch] = 1;
-      // Increment count for an existing character
-      else output[ch]++;
-   }
-}
+foreach (char ch in wordsList)
+   if (ch >= 'A' && ch <= 'Z') output[ch] = output.TryGetValue (ch, out int cnt) ? cnt + 1 : 1;
 // Arrange the letters in descending order based on the value.
-foreach (var kvp in output.OrderByDescending (kv => kv.Value).Take (7))
-   Console.WriteLine ($"Character: {kvp.Key} , Count: {kvp.Value}");
+var orderedLetters = output.OrderByDescending (kv => kv.Value).ToList ();
+Console.WriteLine ("Character Count in Descending Order:");
+foreach (var kvp in orderedLetters)
+   Console.WriteLine ($"Character: {kvp.Key}, Count: {kvp.Value}");
+string finalOutput = string.Join (", ", orderedLetters.Select (kv => kv.Key).Take (7));
+Console.WriteLine ($"Final Output : {finalOutput}");
