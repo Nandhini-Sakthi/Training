@@ -20,14 +20,14 @@ namespace Training {
          // Getting character from the user.
          char[] a = GetInput ("Enter the letters: ").ToCharArray ();
          // Getting special character to swap from the user.
-         char s = char.Parse (GetInput ("Enter the special character: "));
-         // Getting the sorting order from the user. 
+         string s = GetInput ("Enter the special character: ");
+         // Getting the sorting order from the user.
          while (true) {
             Console.Write ("Do you want to sort the character array in decending order: (y)es or (n)o: ");
             ConsoleKeyInfo consoleKey = Console.ReadKey ();
             ConsoleKey sortOrder = consoleKey.Key;
             if (sortOrder == ConsoleKey.Y) {
-               Console.Write ($"\nOutput: {SortWithSpecialChar (a, s, "descending")}");
+               Console.Write ($"\nOutput: {SortWithSpecialChar (a, s, false)}");
                break;
             } else if (sortOrder == ConsoleKey.N) {
                Console.Write ($"\nOutput: {SortWithSpecialChar (a, s)}");
@@ -57,15 +57,15 @@ namespace Training {
       /// <param name="s">Special character</param>
       /// <param name="order">Order for sorting the character</param>
       /// <returns>Sorted character</returns>
-      static string SortWithSpecialChar (char[] a, char s, string order = "ascending") {
+      static string SortWithSpecialChar (char[] a, string s, bool ascending = true) {
          string output = "", splChar = "";
          // Split the char array from the special character and stores it in output and store the special character in specialchar.
          foreach (char c in a) {
-            if (c != s) output += c;
+            if (c != s[0]) output += c;
             else splChar += c;
          }
          // Sort the output based on the user input.
-         output = (order.ToLower () == "descending")
+         output = ascending
           ? new string (output.OrderByDescending (c => c).ToArray ())
           : new string (output.OrderBy (c => c).ToArray ());
          // Join the output and remainingchar.
