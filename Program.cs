@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------
 // Training ~ A training program for new interns at Metamation, Batch - July 2023
-// Copyright (c) Metamation India.                                              
+// Copyright (c) Metamation India.
 // ------------------------------------------------------------------------
 // Program.cs
 // SORT AND SWAP SPECIAL CHARACTERS 
@@ -55,8 +55,8 @@ namespace Training {
       /// <summary>Sort the character array with special character</summary>
       /// <param name="a">Character array</param>
       /// <param name="s">Special character</param>
-      /// <param name="order">Order for sorting the character</param>
-      /// <returns>Sorted character</returns>
+      /// <param name="ascending">Order</param>
+      /// <returns>Sorted characters</returns>
       static string SortWithSpecialChar (char[] a, string s, bool ascending = true) {
          string output = "", splChar = "";
          // Split the char array from the special character and stores it in output and store the special character in specialchar.
