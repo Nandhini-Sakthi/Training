@@ -17,9 +17,9 @@ Dictionary<char, int> output = new ();
 foreach (char ch in wordsList)
    if (ch >= 'A' && ch <= 'Z') output[ch] = output.TryGetValue (ch, out int cnt) ? cnt + 1 : 1;
 // Arrange the letters in descending order based on the value.
-var orderedLetters = output.OrderByDescending (kv => kv.Value).ToList ().Take (7);
+var orderedLetters = output.OrderByDescending (kv => kv.Value).ToList ();
 Console.WriteLine ("LETTER  COUNT");
 Console.WriteLine ("------+------");
 foreach (var kvp in orderedLetters) Console.WriteLine ($"{kvp.Key}       {kvp.Value}");
-string finalOutput = string.Join (", ", orderedLetters.Select (kv => kv.Key));
+string finalOutput = string.Join (", ", orderedLetters.Select (kv => kv.Key).Take (7));
 Console.WriteLine ($"Final Output : {finalOutput}");
