@@ -65,8 +65,8 @@ namespace Training {
          }
          // Sort the output based on the user input.
          output = ascending
-          ? new string (output.OrderByDescending (c => c).ToArray ())
-          : new string (output.OrderBy (c => c).ToArray ());
+          ? new string (output.OrderBy (c => c).ToArray ())
+          : new string (output.OrderByDescending (c => c).ToArray ());
          // Join the output and remainingchar.
          output += splChar;
          return string.Join (", ", output.ToCharArray ());
