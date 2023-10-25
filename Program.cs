@@ -24,8 +24,7 @@ namespace Training {
          // Getting the sorting order from the user.
          while (true) {
             Console.Write ("Do you want to sort the character array in decending order: (y)es or (n)o: ");
-            ConsoleKeyInfo consoleKey = Console.ReadKey ();
-            ConsoleKey sortOrder = consoleKey.Key;
+            var sortOrder = Console.ReadKey ().Key;
             if (sortOrder == ConsoleKey.Y) {
                Console.Write ($"\nOutput: {SortWithSpecialChar (a, s, false)}");
                break;
