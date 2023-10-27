@@ -57,8 +57,7 @@ namespace Training {
       public T Dequeue () {
          InvalidException ();
          T dequeueItem = mArray[0];
-         // Shift the elements to remove the first item
-         for (int i = 1; i < mCount; i++) mArray[i - 1] = mArray[i];
+         for (int i = 1; i < mCount; i++) mArray[i - 1] = mArray[i];  // Shift the elements to remove the first item
          mCount--;
          return dequeueItem;
       }
