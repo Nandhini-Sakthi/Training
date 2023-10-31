@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------
 // Training ~ A training program for interns at Metamation, Batch - July 2023
-// Copyright (c) Metamation India.                                              
+// Copyright (c) Metamation India.
 // ------------------------------------------------------------------------
 // Program.cs
 // MYLIST<T> 
@@ -15,7 +15,7 @@ namespace Training {
          MyList<int> list = new ();
          for (int i = 1; i <= 7; i++) list.Add (i);
          list.Display ();
-         list.Remove (7);
+         list.Remove (4);
          list.Clear ();
          list.Display ();
          for (int i = 1; i <= 6; i++) list.Insert (i - 1, i);
@@ -33,10 +33,8 @@ namespace Training {
    /// <typeparam name="T">Datatype of the list</typeparam>
    public class MyList<T> {
       #region Constructor -------------------------------------------
-      /// <summary>Creating a Constructor for initializing the values</summary>
+      /// <summary>Creating a Constructor</summary>
       public MyList () {
-         mArray = new T[4];  // Initialize the array capacity as 4. 
-         mCount = 0;
       }
       #endregion
 
@@ -66,19 +64,14 @@ namespace Training {
       /// <summary>Add the value to the end</summary>
       /// <param name="a">Value to be add</param>
       public void Add (T a) {
-         CheckCapacity (mCount + 1);
-         mArray[mCount] = a;
-         mCount++;
+         CheckCapacity ();
+         mArray[mCount++] = a;
       }
 
       /// <summary>Check the array capacity</summary>
-      /// <param name="minCapacity">The minimum capacity required</param>
-      private void CheckCapacity (int minCapacity) {
-         if (minCapacity > mArray.Length) {
-            int newCapacity = mArray.Length * 2;  // Double the capacity when needed
-            if (newCapacity < minCapacity) newCapacity = minCapacity;
-            Array.Resize (ref mArray, newCapacity);
-         }
+      private void CheckCapacity () {
+         if (mCount == mArray.Length)
+            Array.Resize (ref mArray, mArray.Length * 2);
       }
 
       /// <summary>Checking the index valid or not</summary>
@@ -109,7 +102,7 @@ namespace Training {
       public void Insert (int index, T item) {
          if (index < 0 || index > mCount)
             throw new IndexOutOfRangeException ("Index is out of the valid range.");
-         CheckCapacity (mCount + 1);
+         CheckCapacity ();
          for (int i = mCount; i > index; i--)
             mArray[i] = mArray[i - 1];
          mArray[index] = item;
@@ -121,10 +114,10 @@ namespace Training {
       /// <returns>Removes the value at the index</returns>
       public bool Remove (T a) {
          int index = Array.IndexOf (mArray, a);
-         CheckIndexRange (index);
-         for (int i = index; i < mCount - 1; i++)
-            mArray[i] = mArray[i + 1];
+         mArray[index] = default;
          mCount--;
+         for (int i = index; i < mCount; i++)
+            mArray[i] = mArray[i + 1];
          return true;
       }
 
@@ -132,13 +125,12 @@ namespace Training {
       /// <param name="index">Index where to remove the element</param>
       public void RemoveAt (int index) {
          CheckIndexRange (index);
-         T item = mArray[index];
-         Remove (item);
+         Remove (this[index]);
       }
       #endregion
       #region Private data ------------------------------------------
-      T[] mArray;
-      int mCount;
+      T[] mArray = new T[4];
+      int mCount = 0;
       #endregion
    }
    #endregion
