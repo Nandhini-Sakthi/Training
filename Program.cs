@@ -35,38 +35,33 @@ namespace Training {
    /// <typeparam name="T">Datatype of the array</typeparam>
    class TStack<T> {
       #region Constructor -------------------------------------------
-      /// <summary>Creating the constructor for initializing the values</summary>
+      /// <summary>Creating the constructor</summary>
       public TStack () {
-         mArray = new T[4];  // Initialize the array capacity as 4. 
-         mCount = 0;
       }
       #endregion
 
       #region Implementation ----------------------------------------
-      /// <summary>Add a element to the array</summary>
-      /// <param name="item">Element to be add</param>
+      /// <summary>Add an element to the array</summary>
+      /// <param name="item">Element to be added</param>
       public void Push (T item) {
          if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
-         mArray[++mCount] = item;
+         mArray[mCount++] = item;
       }
 
       /// <summary>Delete a element from the array and return it</summary>
       /// <returns>Element to be return</returns>
       public T Pop () {
          InvalidException ();
-         T poppedItem = mArray[mCount--];
-         return poppedItem;
+         T item = mArray[--mCount];
+         return item;
       }
 
       /// <summary>Display the top elememt</summary>
       /// <returns>Top element in the array</returns>
       public T Peek () {
          InvalidException ();
-         return mArray[mCount];
+         return mArray[mCount - 1];
       }
-
-      /// <summary>Check the array is empty or not</summary>
-      public bool IsEmpty => mCount == 0;
 
       /// <summary>Expection handling</summary>
       /// <exception cref="InvalidOperationException">When the array is empty</exception>
@@ -76,9 +71,14 @@ namespace Training {
       }
       #endregion
 
+      #region Properties --------------------------------------------
+      /// <summary>Check the array is empty or not</summary>
+      public bool IsEmpty => mCount == 0;
+      #endregion
+
       #region Private data ------------------------------------------
-      T[] mArray;
-      int mCount;
+      T[] mArray = new T[4];
+      int mCount = 0;
       #endregion
    }
    #endregion
