@@ -98,10 +98,10 @@ namespace Training {
       /// <summary>Insert the value</summary>
       /// <param name="index">The index where to add</param>
       /// <param name="item">The value to be add</param>
-      /// <exception cref="IndexOutOfRangeException">When the index is not in range</exception>
+      /// <exception cref="ArgumentOutOfRangeException">When the index is not in range</exception>
       public void Insert (int index, T item) {
          if (index < 0 || index > mCount)
-            throw new IndexOutOfRangeException ("Index is out of the valid range.");
+            throw new ArgumentOutOfRangeException ("Index is out of the valid range or item not found.");
          CheckCapacity ();
          for (int i = mCount; i > index; i--)
             mArray[i] = mArray[i - 1];
@@ -123,8 +123,10 @@ namespace Training {
 
       /// <summary>Remove the value</summary>
       /// <param name="index">Index where to remove the element</param>
+      /// <exception cref="ArgumentOutOfRangeException">When the index is not in range</exception>
       public void RemoveAt (int index) {
-         CheckIndexRange (index);
+         if (index < 0 || index >= mCount)
+            throw new ArgumentOutOfRangeException ("Invalid index.");
          Remove (this[index]);
       }
       #endregion
