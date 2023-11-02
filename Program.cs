@@ -52,8 +52,7 @@ namespace Training {
       /// <returns>Element to be return</returns>
       public T Pop () {
          InvalidException ();
-         T item = mArray[--mCount];
-         return item;
+         return mArray[--mCount];
       }
 
       /// <summary>Display the top elememt</summary>
