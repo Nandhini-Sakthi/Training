@@ -14,6 +14,7 @@
 // }
 // --------------------------------------------------------------------------------------------
 using System;
+
 namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
@@ -38,8 +39,6 @@ namespace Training {
       #region Constructor -------------------------------------------
       /// <summary>Creating the constructor for initializing the values</summary>
       public TQueue () {
-         mArray = new T[4];  // Initialize the array capacity as 4. 
-         mCount = 0;
       }
       #endregion
 
@@ -48,7 +47,8 @@ namespace Training {
       /// <param name="a">Element to be add</param>
       public void Enqueue (T a) {
          if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
-         mArray[mCount] = a;
+         mArray[mRear] = a;
+         mRear = (mRear + 1) % mArray.Length;
          mCount++;
       }
 
@@ -56,17 +56,17 @@ namespace Training {
       /// <returns>Element to be return</returns>
       public T Dequeue () {
          InvalidException ();
-         T dequeueItem = mArray[0];
-         for (int i = 1; i < mCount; i++) mArray[i - 1] = mArray[i];  // Shift the elements to remove the first item
+         T item = mArray[mFront];
+         mFront = (mFront + 1) % mArray.Length;
          mCount--;
-         return dequeueItem;
+         return item;
       }
 
       /// <summary>Display the top elememt</summary>
       /// <returns>Top element in the array</returns>
       public T Peek () {
          InvalidException ();
-         return mArray[0];
+         return mArray[mFront];
       }
 
       /// <summary>Check the array is empty or not</summary>
@@ -81,8 +81,10 @@ namespace Training {
       #endregion
 
       #region Private data ------------------------------------------
-      T[] mArray;
-      int mCount;
+      T[] mArray = new T[4];
+      int mCount = 0;
+      int mRear = 0;
+      int mFront = 0;
       #endregion
    }
    #endregion
