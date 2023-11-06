@@ -6,4 +6,17 @@
     <ImplicitUsings>disenable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="T26\**" />
+    <Compile Remove="TestList\**" />
+    <EmbeddedResource Remove="T26\**" />
+    <EmbeddedResource Remove="TestList\**" />
+    <None Remove="T26\**" />
+    <None Remove="TestList\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
 </Project>

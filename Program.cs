@@ -7,22 +7,13 @@
 // Implement a custom MyList<T> class using arrays as the underlying data structure.
 // --------------------------------------------------------------------------------------------
 using System;
+using System.Linq;
+
 namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
       #region Method ---------------------------------------------
       static void Main () {
-         MyList<int> list = new ();
-         for (int i = 1; i <= 7; i++) list.Add (i);
-         list.Display ();
-         list.Remove (4);
-         list.Clear ();
-         list.Display ();
-         for (int i = 1; i <= 6; i++) list.Insert (i - 1, i);
-         list.Display ();
-         list.RemoveAt (0);
-         list.RemoveAt (1);
-         list.Display ();
       }
       #endregion
    }
@@ -98,10 +89,10 @@ namespace Training {
       /// <summary>Insert the value</summary>
       /// <param name="index">The index where to add</param>
       /// <param name="item">The value to be add</param>
-      /// <exception cref="ArgumentOutOfRangeException">When the index is not in range</exception>
+      /// <exception cref="IndexOutOfRangeException">When the index is not in range</exception>
       public void Insert (int index, T item) {
          if (index < 0 || index > mCount)
-            throw new ArgumentOutOfRangeException ("Index is out of the valid range or item not found.");
+            throw new IndexOutOfRangeException ("Index is out of the valid range.");
          CheckCapacity ();
          for (int i = mCount; i > index; i--)
             mArray[i] = mArray[i - 1];
@@ -112,7 +103,9 @@ namespace Training {
       /// <summary>Remove the value</summary>
       /// <param name="a">Value to be remove</param>
       /// <returns>Removes the value at the index</returns>
+      /// <exception cref="InvalidOperationException">When the item not found</exception>
       public bool Remove (T a) {
+         if (!mArray.Contains (a)) throw new InvalidOperationException ("Item not found in the list.");
          int index = Array.IndexOf (mArray, a);
          mArray[index] = default;
          mCount--;
@@ -123,10 +116,8 @@ namespace Training {
 
       /// <summary>Remove the value</summary>
       /// <param name="index">Index where to remove the element</param>
-      /// <exception cref="ArgumentOutOfRangeException">When the index is not in range</exception>
       public void RemoveAt (int index) {
-         if (index < 0 || index >= mCount)
-            throw new ArgumentOutOfRangeException ("Invalid index.");
+         CheckIndexRange (index);
          Remove (this[index]);
       }
       #endregion
