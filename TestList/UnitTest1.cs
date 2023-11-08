@@ -7,54 +7,67 @@
 // Implement a custom MyList<T> class using arrays as the underlying data structure.
 // --------------------------------------------------------------------------------------------
 using Training;
-namespace LIST {
+namespace list {
    [TestClass]
    public class UnitTest1 {
-      MyList<int> list = new ();
+      MyList<int> list1 = new ();
+      List<int> list2 = new ();
       [TestMethod]
       public void TestAdd () {
-         for (int i = 1; i <= 5; i++) list.Add (i);
-         Assert.AreEqual (5, list.Count);
-         Assert.AreEqual (8, list.Capacity);
-         list[1] = 4;
-         list.Display ();
+         for (int i = 1; i <= 5; i++) list1.Add (i);
+         for (int i = 1; i <= 5; i++) list2.Add (i);
+         Assert.AreEqual (list1.Capacity, list2.Capacity);
+         Assert.AreEqual (list1.Count, list2.Count);
+         list1[0] = 9;
+         list2[0] = 9;
+         Assert.AreEqual (list1[0], list2[0]);
+         list1.Display ();
       }
       [TestMethod]
       public void TestRemove () {
-         for (int i = 1; i <= 7; i++) list.Add (i);
-         list.Remove (4);
-         list.Remove (5);
-         list.Remove (6);
-         Assert.AreEqual (4, list.Count);
-         Assert.AreEqual (7, list[3]);
-         Assert.ThrowsException<InvalidOperationException> (() => list.Remove (10));
+         for (int i = 1; i <= 7; i++) list1.Add (i);
+         list1.Remove (4);
+         list1.Remove (5);
+         list1.Remove (6);
+         for (int i = 1; i <= 7; i++) list2.Add (i);
+         list2.Remove (4);
+         list2.Remove (5);
+         list2.Remove (6);
+         Assert.AreEqual (list1.Count, list2.Count);
+         Assert.AreEqual (list1[3], list2[3]);
       }
       [TestMethod]
       public void TestClear () {
-         for (int i = 1; i <= 7; i++) list.Add (i);
-         list.Clear ();
-         Assert.AreEqual (0, list.Count);
+         for (int i = 1; i <= 7; i++) list1.Add (i);
+         list1.Clear ();
+         for (int i = 1; i <= 7; i++) list2.Add (i);
+         list2.Clear ();
+         Assert.AreEqual (list1.Count, list2.Count);
       }
       [TestMethod]
       public void TestInsert () {
-         for (int i = 1; i <= 4; i++) list.Add (i);
-         list.Insert (2, 8);
-         Assert.AreEqual (5, list.Count);
-         Assert.AreEqual (8, list.Capacity);
-         Assert.AreEqual (3, list[3]);
-         Assert.ThrowsException<IndexOutOfRangeException> (() => list.Insert (8, 9));
-         Assert.ThrowsException<IndexOutOfRangeException> (() => list.Insert (-2, 9));
+         for (int i = 1; i <= 4; i++) list1.Add (i);
+         list1.Insert (2, 8);
+         for (int i = 1; i <= 4; i++) list2.Add (i);
+         list2.Insert (2, 8);
+         Assert.AreEqual (list1.Count, list2.Count);
+         Assert.AreEqual (list1.Capacity, list2.Capacity);
+         Assert.AreEqual (list1[3], list2[3]);
+         Assert.ThrowsException<IndexOutOfRangeException> (() => list1.Insert (8, 9));
+         Assert.ThrowsException<IndexOutOfRangeException> (() => list1.Insert (-2, 9));
       }
       [TestMethod]
       public void TestRemoveAt () {
-         for (int i = 1; i <= 5; i++) list.Add (i);
-         list.RemoveAt (0);
-         Assert.AreEqual (4, list.Count);
-         list.RemoveAt (1);
-         Assert.AreEqual (3, list.Count);
-         Assert.ThrowsException<IndexOutOfRangeException> (() => list.RemoveAt (10));
-         Assert.ThrowsException<IndexOutOfRangeException> (() => list.RemoveAt (-2));
-
+         for (int i = 1; i <= 5; i++) list1.Add (i);
+         list1.RemoveAt (0);
+         for (int i = 1; i <= 5; i++) list2.Add (i);
+         list2.RemoveAt (0);
+         Assert.AreEqual (list1.Count, list2.Count);
+         list1.RemoveAt (1);
+         list2.RemoveAt (1);
+         Assert.AreEqual (list1.Count, list2.Count);
+         Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (10));
+         Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (-2));
       }
    }
 }

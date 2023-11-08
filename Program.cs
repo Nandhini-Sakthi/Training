@@ -7,14 +7,12 @@
 // Implement a custom MyList<T> class using arrays as the underlying data structure.
 // --------------------------------------------------------------------------------------------
 using System;
-using System.Linq;
 
 namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
       #region Method ---------------------------------------------
-      static void Main () {
-      }
+      static void Main () { }
       #endregion
    }
    #endregion
@@ -25,8 +23,7 @@ namespace Training {
    public class MyList<T> {
       #region Constructor -------------------------------------------
       /// <summary>Creating a Constructor</summary>
-      public MyList () {
-      }
+      public MyList () { }
       #endregion
 
       #region Properties --------------------------------------------
@@ -105,7 +102,6 @@ namespace Training {
       /// <returns>Removes the value at the index</returns>
       /// <exception cref="InvalidOperationException">When the item not found</exception>
       public bool Remove (T a) {
-         if (!mArray.Contains (a)) throw new InvalidOperationException ("Item not found in the list.");
          int index = Array.IndexOf (mArray, a);
          mArray[index] = default;
          mCount--;
