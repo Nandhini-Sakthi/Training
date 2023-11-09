@@ -18,26 +18,17 @@ namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
       #region Method ---------------------------------------------
-      static void Main () {
-         TStack<int> stack = new ();
-         stack.Push (1);
-         stack.Push (2);
-         stack.Push (3);
-         Console.WriteLine ("Top item: " + stack.Peek ());
-         while (!stack.IsEmpty)
-            Console.WriteLine ("Popped: " + stack.Pop ());
-      }
+      static void Main () { }
       #endregion
    }
    #endregion
    #region TStack<T> ------------------------------------------------------------------------------
    /// <summary>Create a class</summary>
    /// <typeparam name="T">Datatype of the array</typeparam>
-   class TStack<T> {
+   public class TStack<T> {
       #region Constructor -------------------------------------------
       /// <summary>Creating the constructor</summary>
-      public TStack () {
-      }
+      public TStack () { }
       #endregion
 
       #region Implementation ----------------------------------------
@@ -73,6 +64,12 @@ namespace Training {
       #region Properties --------------------------------------------
       /// <summary>Check the array is empty or not</summary>
       public bool IsEmpty => mCount == 0;
+
+      /// <summary>Calculating capacity of the array</summary>
+      public int Capacity => mArray.Length;
+
+      /// <summary>Gets the number of elements in the list</summary>
+      public int Count => mCount;
       #endregion
 
       #region Private data ------------------------------------------
