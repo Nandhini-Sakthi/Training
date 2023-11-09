@@ -14,8 +14,10 @@ namespace list {
       List<int> list2 = new ();
       [TestMethod]
       public void TestAdd () {
-         for (int i = 1; i <= 5; i++) list1.Add (i);
-         for (int i = 1; i <= 5; i++) list2.Add (i);
+         for (int i = 1; i <= 5; i++) { 
+            list1.Add (i);
+            list2.Add (i);
+         }
          Assert.AreEqual (list1.Capacity, list2.Capacity);
          Assert.AreEqual (list1.Count, list2.Count);
          list1[0] = 9;
@@ -25,30 +27,34 @@ namespace list {
       }
       [TestMethod]
       public void TestRemove () {
-         for (int i = 1; i <= 7; i++) list1.Add (i);
-         list1.Remove (4);
-         list1.Remove (5);
-         list1.Remove (6);
-         for (int i = 1; i <= 7; i++) list2.Add (i);
-         list2.Remove (4);
-         list2.Remove (5);
-         list2.Remove (6);
+         for (int i = 1; i <= 7; i++) {
+            list1.Add (i);
+            list2.Add (i);
+         }
+         for (int i = 4; i <= 6; i++) {
+            list1.Remove (i);
+            list2.Remove (i);
+         }
          Assert.AreEqual (list1.Count, list2.Count);
          Assert.AreEqual (list1[3], list2[3]);
       }
       [TestMethod]
       public void TestClear () {
-         for (int i = 1; i <= 7; i++) list1.Add (i);
+         for (int i = 1; i <= 7; i++) {
+            list1.Add (i);
+            list2.Add (i);
+         }
          list1.Clear ();
-         for (int i = 1; i <= 7; i++) list2.Add (i);
          list2.Clear ();
          Assert.AreEqual (list1.Count, list2.Count);
       }
       [TestMethod]
       public void TestInsert () {
-         for (int i = 1; i <= 4; i++) list1.Add (i);
+         for (int i = 1; i <= 4; i++) {
+            list1.Add (i);
+            list2.Add (i);
+         }
          list1.Insert (2, 8);
-         for (int i = 1; i <= 4; i++) list2.Add (i);
          list2.Insert (2, 8);
          Assert.AreEqual (list1.Count, list2.Count);
          Assert.AreEqual (list1.Capacity, list2.Capacity);
@@ -58,9 +64,11 @@ namespace list {
       }
       [TestMethod]
       public void TestRemoveAt () {
-         for (int i = 1; i <= 5; i++) list1.Add (i);
+         for (int i = 1; i <= 5; i++) {
+            list1.Add (i);
+            list2.Add (i);
+         }
          list1.RemoveAt (0);
-         for (int i = 1; i <= 5; i++) list2.Add (i);
          list2.RemoveAt (0);
          Assert.AreEqual (list1.Count, list2.Count);
          list1.RemoveAt (1);
