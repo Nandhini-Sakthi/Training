@@ -23,12 +23,10 @@ namespace TestStack {
 
       [TestMethod]
       public void TestPush () {
-         stack1.Push (1);
-         stack1.Push (2);
-         stack1.Push (3);
-         stack2.Push (1);
-         stack2.Push (2);
-         stack2.Push (3);
+         for (int i = 1; i < 4; i++) {
+            stack1.Push (i);
+            stack2.Push (i);
+         }
          Assert.AreEqual (stack1.Count, stack2.Count);
          stack1.Push (4);
          stack1.Push (5);
@@ -36,12 +34,10 @@ namespace TestStack {
       }
       [TestMethod]
       public void TestPop () {
-         stack1.Push (1);
-         stack1.Push (2);
-         stack1.Push (3);
-         stack2.Push (1);
-         stack2.Push (2);
-         stack2.Push (3);
+         for (int i = 1; i < 4; i++) {
+            stack1.Push (i);
+            stack2.Push (i);
+         }
          Assert.AreEqual (stack1.Pop (), stack2.Pop ());
          Assert.AreEqual (stack1.Count, stack2.Count);
          stack1.Pop ();
@@ -50,12 +46,10 @@ namespace TestStack {
       }
       [TestMethod]
       public void PeekTest () {
-         stack1.Push (1);
-         stack1.Push (2);
-         stack1.Push (3);
-         stack2.Push (1);
-         stack2.Push (2);
-         stack2.Push (3);
+         for (int i = 1; i < 4; i++) {
+            stack1.Push (i);
+            stack2.Push (i);
+         }
          Assert.AreEqual (stack1.Peek (), stack2.Peek ());
          Assert.AreEqual (stack1.Pop (), stack2.Pop ());
          Assert.AreEqual (stack1.Pop (), stack2.Pop ());

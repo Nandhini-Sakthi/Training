@@ -8,11 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="dotCover.Output\**" />
     <Compile Remove="TestList\**" />
+    <Compile Remove="TestQueue\**" />
     <Compile Remove="TestStack\**" />
+    <EmbeddedResource Remove="dotCover.Output\**" />
     <EmbeddedResource Remove="TestList\**" />
+    <EmbeddedResource Remove="TestQueue\**" />
     <EmbeddedResource Remove="TestStack\**" />
+    <None Remove="dotCover.Output\**" />
     <None Remove="TestList\**" />
+    <None Remove="TestQueue\**" />
     <None Remove="TestStack\**" />
   </ItemGroup>
 
