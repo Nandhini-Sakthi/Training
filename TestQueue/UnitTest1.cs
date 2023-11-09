@@ -21,14 +21,10 @@ namespace TestQueue {
       Queue<int> queue2 = new ();
       [TestMethod]
       public void TestEnqueue () {
-         queue1.Enqueue (1);
-         queue1.Enqueue (2);
-         queue1.Enqueue (3);
-         queue2.Enqueue (1);
-         queue2.Enqueue (2);
-         queue2.Enqueue (3);
-         queue1.Enqueue (4);
-         queue2.Enqueue (4);
+         for (int i = 1; i < 5; i++) { 
+         queue1.Enqueue (i);
+         queue2.Enqueue (i);
+      }
          Assert.AreEqual (queue1.Count, queue2.Count);
          Assert.AreEqual (4, queue1.Capacity);
          queue1.Enqueue (5);
@@ -36,12 +32,10 @@ namespace TestQueue {
       }
       [TestMethod]
       public void TestDequeue () {
-         queue1.Enqueue (1);
-         queue1.Enqueue (2);
-         queue1.Enqueue (3);
-         queue2.Enqueue (1);
-         queue2.Enqueue (2);
-         queue2.Enqueue (3);
+         for (int i = 1; i < 4; i++) {
+            queue1.Enqueue (i);
+            queue2.Enqueue (i);
+         }
          Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
          Assert.AreEqual (queue1.Count, queue2.Count);
          queue1.Dequeue ();
@@ -51,16 +45,13 @@ namespace TestQueue {
       }
       [TestMethod]
       public void TestPeek () {
-         queue1.Enqueue (1);
-         queue1.Enqueue (2);
-         queue1.Enqueue (3);
-         queue2.Enqueue (1);
-         queue2.Enqueue (2);
-         queue2.Enqueue (3);
+         for (int i = 1; i < 4; i++) {
+            queue1.Enqueue (i);
+            queue2.Enqueue (i);
+         }
          Assert.AreEqual (queue1.Peek (), queue2.Peek ());
          Assert.AreEqual (queue1.Count, queue2.Count);
-         queue1.Dequeue ();
-         queue1.Dequeue ();
+         for (int i=3; i>0; i--)
          queue1.Dequeue ();
          Assert.IsTrue (queue1.IsEmpty);
          Assert.ThrowsException<InvalidOperationException> (() => queue1.Peek ());

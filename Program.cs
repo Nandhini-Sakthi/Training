@@ -18,15 +18,7 @@ namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
       #region Method ---------------------------------------------
-      static void Main () {
-         TQueue<int> queue = new ();
-         queue.Enqueue (1);
-         queue.Enqueue (2);
-         queue.Enqueue (3);
-         Console.WriteLine ("Top item: " + queue.Peek ());
-         while (!queue.IsEmpty)
-            Console.WriteLine ("Dequeue item: " + queue.Dequeue ());
-      }
+      static void Main () { }
       #endregion
    }
    #endregion
