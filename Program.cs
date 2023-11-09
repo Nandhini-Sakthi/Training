@@ -14,7 +14,6 @@
 // }
 // --------------------------------------------------------------------------------------------
 using System;
-
 namespace Training {
    #region Program ------------------------------------------------------------------------------
    class Program {
@@ -35,11 +34,10 @@ namespace Training {
    #region TQueue<T> ------------------------------------------------------------------------------
    /// <summary>Create a class</summary>
    /// <typeparam name="T">Datatype of the array</typeparam>
-   class TQueue<T> {
+   public class TQueue<T> {
       #region Constructor -------------------------------------------
       /// <summary>Creating the constructor for initializing the values</summary>
-      public TQueue () {
-      }
+      public TQueue () { }
       #endregion
 
       #region Implementation ----------------------------------------
@@ -55,8 +53,9 @@ namespace Training {
       /// <summary>Delete a element from the array and return it</summary>
       /// <returns>Element to be return</returns>
       public T Dequeue () {
-         InvalidException ();
+         Exception ();
          T item = mArray[mFront];
+         mArray[mFront] = default;
          mFront = (mFront + 1) % mArray.Length;
          mCount--;
          return item;
@@ -65,21 +64,27 @@ namespace Training {
       /// <summary>Display the top elememt</summary>
       /// <returns>Top element in the array</returns>
       public T Peek () {
-         InvalidException ();
+         Exception ();
          return mArray[mFront];
       }
 
-      /// <summary>Check the array is empty or not</summary>
-      public bool IsEmpty => mCount == 0;
-
       /// <summary>Expection handling</summary>
       /// <exception cref="InvalidOperationException">When the array is empty</exception>
-      public void InvalidException () {
+      public void Exception () {
          if (IsEmpty)
             throw new InvalidOperationException ("It is an empty queue.");
       }
       #endregion
+      #region Properties --------------------------------------------
+      /// <summary>Check the array is empty or not</summary>
+      public bool IsEmpty => mCount == 0;
 
+      /// <summary>Calculating capacity of the array</summary>
+      public int Capacity => mArray.Length;
+
+      /// <summary>Gets the number of elements in the list</summary>
+      public int Count => mCount;
+      #endregion
       #region Private data ------------------------------------------
       T[] mArray = new T[4];
       int mCount = 0;
