@@ -12,6 +12,7 @@ namespace list {
    public class UnitTest1 {
       MyList<int> list1 = new ();
       List<int> list2 = new ();
+
       [TestMethod]
       public void TestAdd () {
          for (int i = 1; i <= 5; i++) {
@@ -24,6 +25,7 @@ namespace list {
          list2[0] = 9;
          Assert.AreEqual (list1[0], list2[0]);
       }
+
       [TestMethod]
       public void TestRemove () {
          for (int i = 1; i <= 7; i++) {
@@ -37,6 +39,7 @@ namespace list {
          Assert.AreEqual (list1.Count, list2.Count);
          Assert.AreEqual (list1[3], list2[3]);
       }
+
       [TestMethod]
       public void TestClear () {
          for (int i = 1; i <= 7; i++) {
@@ -47,6 +50,7 @@ namespace list {
          list2.Clear ();
          Assert.AreEqual (list1.Count, list2.Count);
       }
+
       [TestMethod]
       public void TestInsert () {
          for (int i = 1; i <= 4; i++) {
@@ -61,6 +65,7 @@ namespace list {
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.Insert (8, 9));
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.Insert (-2, 9));
       }
+
       [TestMethod]
       public void TestRemoveAt () {
          for (int i = 1; i <= 5; i++) {
@@ -76,6 +81,7 @@ namespace list {
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (10));
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (-2));
       }
+
       [TestMethod]
       public void TestDisplay () {
          for (int i = 1; i <= 5; i++) {
