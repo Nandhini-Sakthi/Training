@@ -22,29 +22,6 @@ namespace TestStack {
       Stack<int> stack2 = new ();
 
       [TestMethod]
-      public void TestPush () {
-         for (int i = 1; i < 4; i++) {
-            stack1.Push (i);
-            stack2.Push (i);
-         }
-         Assert.AreEqual (stack1.Count, stack2.Count);
-         stack1.Push (4);
-         stack1.Push (5);
-         Assert.AreEqual (8, stack1.Capacity);
-      }
-      [TestMethod]
-      public void TestPop () {
-         for (int i = 1; i < 4; i++) {
-            stack1.Push (i);
-            stack2.Push (i);
-         }
-         Assert.AreEqual (stack1.Pop (), stack2.Pop ());
-         Assert.AreEqual (stack1.Count, stack2.Count);
-         stack1.Pop ();
-         stack1.Pop ();
-         Assert.ThrowsException<InvalidOperationException> (() => stack1.Pop ());
-      }
-      [TestMethod]
       public void PeekTest () {
          for (int i = 1; i < 4; i++) {
             stack1.Push (i);
@@ -56,6 +33,33 @@ namespace TestStack {
          Assert.AreEqual (stack1.Pop (), stack2.Pop ());
          Assert.IsTrue (stack1.IsEmpty);
          Assert.ThrowsException<InvalidOperationException> (() => stack1.Peek ());
+      }
+
+      [TestMethod]
+      public void TestPop () {
+         for (int i = 1; i < 4; i++) {
+            stack1.Push (i);
+            stack2.Push (i);
+         }
+         Assert.AreEqual (stack1.Pop (), stack2.Pop ());
+         Assert.AreEqual (stack1.Count, stack2.Count);
+         Assert.AreEqual (stack1.Pop (), stack2.Pop ());
+         Assert.AreEqual (stack1.Pop (), stack2.Pop ());
+         Assert.ThrowsException<InvalidOperationException> (() => stack1.Pop ());
+         Assert.ThrowsException<InvalidOperationException> (() => stack2.Pop ());
+      }
+
+      [TestMethod]
+      public void TestPush () {
+         for (int i = 1; i < 4; i++) {
+            stack1.Push (i);
+            stack2.Push (i);
+         }
+         Assert.AreEqual (stack1.Count, stack2.Count);
+         stack1.Push (4);
+         stack1.Push (5);
+         Assert.AreEqual (8, stack1.Capacity);
+         Assert.AreEqual (8, stack2.EnsureCapacity (5));
       }
    }
 }

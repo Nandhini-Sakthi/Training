@@ -22,6 +22,7 @@ namespace Training {
       #endregion
    }
    #endregion
+
    #region TStack<T> ------------------------------------------------------------------------------
    /// <summary>Create a class</summary>
    /// <typeparam name="T">Datatype of the array</typeparam>
@@ -32,18 +33,11 @@ namespace Training {
       #endregion
 
       #region Implementation ----------------------------------------
-      /// <summary>Add an element to the array</summary>
-      /// <param name="item">Element to be added</param>
-      public void Push (T item) {
-         if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
-         mArray[mCount++] = item;
-      }
-
-      /// <summary>Delete a element from the array and return it</summary>
-      /// <returns>Element to be return</returns>
-      public T Pop () {
-         InvalidException ();
-         return mArray[--mCount];
+      /// <summary>Expection handling</summary>
+      /// <exception cref="InvalidOperationException">When the array is empty</exception>
+      public void InvalidException () {
+         if (IsEmpty)
+            throw new InvalidOperationException ("It is an empty stack.");
       }
 
       /// <summary>Display the top elememt</summary>
@@ -53,23 +47,30 @@ namespace Training {
          return mArray[mCount - 1];
       }
 
-      /// <summary>Expection handling</summary>
-      /// <exception cref="InvalidOperationException">When the array is empty</exception>
-      public void InvalidException () {
-         if (IsEmpty)
-            throw new InvalidOperationException ("It is an empty stack.");
+      /// <summary>Delete a element from the array and return it</summary>
+      /// <returns>Element to be return</returns>
+      public T Pop () {
+         InvalidException ();
+         return mArray[--mCount];
+      }
+
+      /// <summary>Add an element to the array</summary>
+      /// <param name="item">Element to be added</param>
+      public void Push (T item) {
+         if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
+         mArray[mCount++] = item;
       }
       #endregion
 
       #region Properties --------------------------------------------
-      /// <summary>Check the array is empty or not</summary>
-      public bool IsEmpty => mCount == 0;
-
       /// <summary>Calculating capacity of the array</summary>
       public int Capacity => mArray.Length;
 
       /// <summary>Gets the number of elements in the list</summary>
       public int Count => mCount;
+
+      /// <summary>Check the array is empty or not</summary>
+      public bool IsEmpty => mCount == 0;
       #endregion
 
       #region Private data ------------------------------------------
