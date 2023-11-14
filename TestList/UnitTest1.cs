@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------------
 // Program.cs
-// MYLIST<T> 
+// MYLIST<T>
 // Implement a custom MyList<T> class using arrays as the underlying data structure.
 // --------------------------------------------------------------------------------------------
 using Training;
@@ -14,7 +14,7 @@ namespace list {
       List<int> list2 = new ();
       [TestMethod]
       public void TestAdd () {
-         for (int i = 1; i <= 5; i++) { 
+         for (int i = 1; i <= 5; i++) {
             list1.Add (i);
             list2.Add (i);
          }
@@ -23,7 +23,6 @@ namespace list {
          list1[0] = 9;
          list2[0] = 9;
          Assert.AreEqual (list1[0], list2[0]);
-         list1.Display ();
       }
       [TestMethod]
       public void TestRemove () {
@@ -76,6 +75,14 @@ namespace list {
          Assert.AreEqual (list1.Count, list2.Count);
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (10));
          Assert.ThrowsException<IndexOutOfRangeException> (() => list1.RemoveAt (-2));
+      }
+      [TestMethod]
+      public void TestDisplay () {
+         for (int i = 1; i <= 5; i++) {
+            list1.Add (i);
+            list2.Add (i);
+         }
+         list1.Display ();
       }
    }
 }
