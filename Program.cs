@@ -33,15 +33,6 @@ namespace Training {
       #endregion
 
       #region Implementation ----------------------------------------
-      /// <summary>Add a element to the array</summary>
-      /// <param name="a">Element to be add</param>
-      public void Enqueue (T a) {
-         if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
-         mArray[mRear] = a;
-         mRear = (mRear + 1) % mArray.Length;
-         mCount++;
-      }
-
       /// <summary>Delete a element from the array and return it</summary>
       /// <returns>Element to be return</returns>
       public T Dequeue () {
@@ -53,11 +44,13 @@ namespace Training {
          return item;
       }
 
-      /// <summary>Display the top elememt</summary>
-      /// <returns>Top element in the array</returns>
-      public T Peek () {
-         Exception ();
-         return mArray[mFront];
+      /// <summary>Add a element to the array</summary>
+      /// <param name="a">Element to be add</param>
+      public void Enqueue (T a) {
+         if (mCount == mArray.Length) Array.Resize (ref mArray, mArray.Length * 2);
+         mArray[mRear] = a;
+         mRear = (mRear + 1) % mArray.Length;
+         mCount++;
       }
 
       /// <summary>Expection handling</summary>
@@ -66,17 +59,26 @@ namespace Training {
          if (IsEmpty)
             throw new InvalidOperationException ("It is an empty queue.");
       }
-      #endregion
-      #region Properties --------------------------------------------
-      /// <summary>Check the array is empty or not</summary>
-      public bool IsEmpty => mCount == 0;
 
+      /// <summary>Display the top elememt</summary>
+      /// <returns>Top element in the array</returns>
+      public T Peek () {
+         Exception ();
+         return mArray[mFront];
+      }
+      #endregion
+
+      #region Properties --------------------------------------------
       /// <summary>Calculating capacity of the array</summary>
       public int Capacity => mArray.Length;
 
       /// <summary>Gets the number of elements in the list</summary>
       public int Count => mCount;
+
+      /// <summary>Check the array is empty or not</summary>
+      public bool IsEmpty => mCount == 0;
       #endregion
+
       #region Private data ------------------------------------------
       T[] mArray = new T[4];
       int mCount = 0;

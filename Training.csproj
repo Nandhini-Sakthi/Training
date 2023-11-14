@@ -22,4 +22,8 @@
     <None Remove="TestStack\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="dotCover.Output.html" />
+  </ItemGroup>
+
 </Project>
