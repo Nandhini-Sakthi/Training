@@ -4,7 +4,7 @@
 // ------------------------------------------------------------------------
 // Program.cs
 // QUEUE<T>
-// Implement a Queue<T> using arrays as the underlying data structure. The queue should grow the array when needed (like the TStack above does).
+// Implement a Queue<T> using arrays as the underlying data structure. The queue should grow the array when needed (like the TStack before does).
 // If the array does not have to be grown, both Enqueue and Dequeue should be constant time (O(1)) operations. Throw exceptions as needed.
 // class TQueue<T> { 
 // public void Enqueue (T a) { }

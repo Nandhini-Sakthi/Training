@@ -26,10 +26,8 @@ namespace TestQueue {
             queue1.Enqueue (i);
             queue2.Enqueue (i);
          }
-         Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
          Assert.AreEqual (queue1.Count, queue2.Count);
-         Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
-         Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
+         while (queue1.Count > 0 && queue2.Count > 0) Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
          Assert.IsTrue (queue1.IsEmpty);
          Assert.ThrowsException<InvalidOperationException> (() => queue1.Dequeue ());
          Assert.ThrowsException<InvalidOperationException> (() => queue2.Dequeue ());
@@ -37,15 +35,14 @@ namespace TestQueue {
 
       [TestMethod]
       public void TestEnqueue () {
-         for (int i = 1; i < 5; i++) { 
-         queue1.Enqueue (i);
-         queue2.Enqueue (i);
-      }
+         for (int i = 1; i < 5; i++) {
+            queue1.Enqueue (i);
+            queue2.Enqueue (i);
+         }
          Assert.AreEqual (queue1.Count, queue2.Count);
-         Assert.AreEqual (4, queue1.Capacity);
+         Assert.AreEqual (queue2.EnsureCapacity (queue1.Count), queue1.Capacity);
          queue1.Enqueue (5);
-         Assert.AreEqual (8, queue1.Capacity);
-         Assert.AreEqual (8, queue2.EnsureCapacity (5));
+         Assert.AreEqual (queue2.EnsureCapacity (queue1.Count), queue1.Capacity);
       }
 
       [TestMethod]
@@ -56,10 +53,10 @@ namespace TestQueue {
          }
          Assert.AreEqual (queue1.Peek (), queue2.Peek ());
          Assert.AreEqual (queue1.Count, queue2.Count);
-         for (int i=3; i>0; i--)
-         queue1.Dequeue ();
+         while (queue1.Count > 0 && queue2.Count > 0) Assert.AreEqual (queue1.Dequeue (), queue2.Dequeue ());
          Assert.IsTrue (queue1.IsEmpty);
          Assert.ThrowsException<InvalidOperationException> (() => queue1.Peek ());
+         Assert.ThrowsException<InvalidOperationException> (() => queue2.Peek ());
       }
    }
 }
