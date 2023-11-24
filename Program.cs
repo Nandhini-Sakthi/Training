@@ -21,7 +21,7 @@ namespace Training {
       /// <summary>Prints Eight Queens</summary>
       /// <param name="args">Arguments</param>
       static void Main (string[] args) {
-         Console.WriteLine ("Press (A)ll solution or (U)nique solution to display: ");
+         Console.WriteLine ("Press U for unique solution to display else press any key for all solution: ");
          bool isUnique = false;
          if (Console.ReadKey (true).Key == ConsoleKey.U) isUnique = true;
          QueenPosition (0, isUnique);
@@ -102,6 +102,7 @@ namespace Training {
                } else QueenPosition (row + 1, isUnique);
             }
          }
+
       }
 
       /// <summary>Rotate the solutions</summary>
