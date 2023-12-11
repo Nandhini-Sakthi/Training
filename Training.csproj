@@ -7,4 +7,26 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="dotCover.Output\**" />
+    <Compile Remove="TestList\**" />
+    <Compile Remove="TestProject1\**" />
+    <Compile Remove="TestQueue\**" />
+    <Compile Remove="TestStack\**" />
+    <EmbeddedResource Remove="dotCover.Output\**" />
+    <EmbeddedResource Remove="TestList\**" />
+    <EmbeddedResource Remove="TestProject1\**" />
+    <EmbeddedResource Remove="TestQueue\**" />
+    <EmbeddedResource Remove="TestStack\**" />
+    <None Remove="dotCover.Output\**" />
+    <None Remove="TestList\**" />
+    <None Remove="TestProject1\**" />
+    <None Remove="TestQueue\**" />
+    <None Remove="TestStack\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="dotCover.Output.html" />
+  </ItemGroup>
+
 </Project>
