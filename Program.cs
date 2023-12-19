@@ -1,25 +1,24 @@
-﻿// ---------------------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------------------------------
 // Training ~ A training program for new interns at Metamation, Batch- July 2023.
-// Copyright (c) Metamation India.                                                
-// ---------------------------------------------------------------------------------------
-// Program.cs                                                                     
+// Copyright (c) Metamation India.
+// ------------------------------------------------------------------------------------------------
+// Program.cs
 // Program to implement double.Parse method that takes a string and returns a double.
-// ---------------------------------------------------------------------------------------
-
+// ------------------------------------------------------------------------------------------------
 using System;
-using System.Linq;
+
 namespace Training {
-   #region Program ------------------------------------------------------------------------------
    /// <summary>Class program</summary>
+  #region Program ---------------------------------------------------------------------------------
    class Program {
-      #region Method ---------------------------------------------
+      #region Method ------------------------------------------------
       /// <summary>Display output</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
          for (; ; ) {
-            Console.WriteLine ("enter:");
-            string input = Console.ReadLine ()!;
-            if (MyParse.TryParse (input, out double result)) Console.WriteLine (result);
+            Console.WriteLine ("Enter a number:");
+            string input = Console.ReadLine ();
+            if (MDouble.Parse (input, out double result)) Console.WriteLine ($"Parsed value: {result}");
             else Console.WriteLine ("Invalid input. Please enter a valid number.");
          }
       }
@@ -27,117 +26,100 @@ namespace Training {
    }
    #endregion
 
-   #region MyParse ------------------------------------------------------------------------------
+   #region MDouble --------------------------------------------------------------------------------
    /// <summary>Double precision floating point number representation</summary>
-   public class MyParse {
-      #region Implementation ----------------------------------------
-      /// <summary>Calculate the before exp value</summary>
-      /// <param name="inputs">Number before exp</param>
-      /// <param name="intPart">Calculated value</param>
+   public class MDouble {
+      #region Method ------------------------------------------------
+      /// <summary>Calculate exp part</summary>
+      /// <param name="input">Input number</param>
+      /// <param name="exp">Exponent part</param>
+      /// <returns>Value after exp</returns>
+      static bool AfterExp (string input, out double exp) {
+         exp = 0;
+         double sign;
+         if (input.Contains ('.')) return false;
+         (sign, input) = SignCheck (input);
+         if (!NumericPart (input, out double intPart)) return false;
+         exp = sign * intPart;
+         return true;
+      }
+
+      /// <summary>Calculate value before exp</summary>
+      /// <param name="input">Input number</param>
+      /// <param name="baseNum">Base number</param>
       /// <returns>Value before exp</returns>
-      static bool BeforeExp (string inputs, out double intPart) {
-         double factPart = 0.1, sign = 1;
-         intPart = 0;
-         if (inputs[0] == '-' || inputs[0] == '+') {
-            sign = inputs[0] == '-' ? -1 : 1;
-            // Skip the sign character
-            inputs = inputs.Substring (1); 
+      static bool BeforeExp (string input, out double baseNum) {
+         baseNum = 0;
+         double sign;
+         (sign, input) = SignCheck (input);
+         string[] parts = input.Split ('.');
+         if (parts.Length > 2) return false;
+         if (!NumericPart (parts[0], out double intPart)) return false;
+         double deciPart = 0;
+         if (parts.Length == 2 && !string.IsNullOrEmpty (parts[1]))
+            if (!DecimalPart (parts[1], out deciPart)) return false;
+         baseNum = sign * (intPart + deciPart);
+         return true;
+      }
+
+      /// <summary>Calculate decimal part</summary>
+      /// <param name="input">Input</param>
+      /// <param name="decPart">Decimal part</param>
+      /// <returns>Value of decimal part</returns>
+      static bool DecimalPart (string input, out double decPart) {
+         decPart = 0;
+         double f = 0.1;
+         foreach (char c in input) {
+            if (!char.IsDigit (c)) return false;
+            decPart += (c - '0') * f;
+            f *= 0.1;
          }
-         if (inputs.Contains ('.')) {
-            // Split the input using char '.'.
-            string[] num = inputs.Split ('.');
-            foreach (char c in num[0]) intPart = intPart * 10 + (c - '0');
-            foreach (char c in num[1]) {
-               intPart += (c - '0') * factPart;
-               factPart *= 0.1;
-            }
-         } else
-            foreach (char c in inputs) intPart = intPart * 10 + (c - '0');
-         intPart *= sign;
+         return true;
+      }
+
+      /// <summary>Calculate numeric part</summary>
+      /// <param name="input">Input</param>
+      /// <param name="numPart">Numeric part</param>
+      /// <returns>Value of numeric part</returns>
+      static bool NumericPart (string input, out double numPart) {
+         numPart = 0;
+         foreach (char c in input) {
+            if (!char.IsDigit (c)) return false;
+            numPart = numPart * 10 + (c - '0');
+         }
          return true;
       }
 
       /// <summary>Implementation of double parse</summary>
-      /// <param name="number">Input</param>
-      /// <param name="result">Double parse value</param>
+      /// <param name="input">Input number</param>
+      /// <param name="res">Double parse value</param>
       /// <returns>Returns a double precision floating point number whether the input is valid</returns>
-      public static bool TryParse (string number, out double result) {
-         int expPow = 0, expSign = 1;
-         double exp = 1;
-         // Remove the space and change the upper character to lower character.
-         string input = number.Trim ().ToLower ();
-         if (ValidCheck (input)) {
-            if (input.Contains ('e')) {
-               // Split the input using char e.
-               string[] expPart = input.Split ('e');
-               foreach (char c in expPart[1]) {
-                  if ((c == '-' || c == '+') && expPow == 0) expSign = c == '-' ? -1 : 1;
-                  else if (char.IsDigit (c)) expPow = expPow * 10 + (c - '0');
-               }
-               // expPow represents exp power value.
-               expPow *= expSign;
-               // exp represents exp value.
-               exp *= Math.Pow (10, expPow);
-               if (!BeforeExp (expPart[0], out double intPart)) {
-                  result = 0;
-                  return false;
-               }
-               result = intPart * exp;
-            } else
-               if (!BeforeExp (input, out result)) return false;
-            return true;
-         } else {
-            result = 0;
-            return false;
-         }
+      public static bool Parse (string input, out double res) {
+         res = 0;
+         // Remove the space and change the upper character to lower character
+         input = input.Trim ().ToLower ();
+         if (string.IsNullOrWhiteSpace (input) || input.StartsWith ('e') || input.EndsWith ('e')) return false;
+         if (input.Contains ('e')) {
+            // Split the input using char e
+            string[] parts = input.Split ('e');
+            if (parts.Length == 2 && BeforeExp (parts[0], out double baseNum) && AfterExp (parts[1], out double exp)) {
+               res = baseNum * Math.Pow (10, exp);
+               return true;
+            }
+         } else return BeforeExp (input, out res);
+         return false;
       }
-     
-      /// <summary>Check whether the input is valid or not</summary>
-      /// <param name="input">Number</param>
-      /// <returns>True while the input is valid</returns>
-      static bool ValidCheck (string input) {
-         if (string.IsNullOrWhiteSpace (input) || input.EndsWith ('+') || input.EndsWith ('-') || !IsNumber (input)) return false;
-         return true;
 
-         // Check the decimal part is valid or not.
-         static bool DecCheck (string input) {
-            if (input.Contains ('.')) {
-               string[] numPart = input.Split ('.');
-               if (numPart.Length! > 2 || numPart[1].Contains ('-') || numPart[1].Contains ('+') || !SignCheck (numPart[0])) return false;
-               if (numPart[0] == "") return true;
-               return true;
-            }
-            return true;
+      /// <summary>Calculate sign value</summary>
+      /// <param name="input">Input</param>
+      /// <returns>Sign and input value</returns>
+      static (double, string) SignCheck (string input) {
+         double sign = 1; string output = input;
+         if (input[0] == '-' || input[0] == '+') {
+            sign = (input[0] == '-') ? -1 : 1;
+            output = input.Substring (1);
          }
-
-         // Check the input is valid or not
-         static bool IsNumber (string input) {
-            if (IsNumeric (input)) {
-               if (input.Contains ('e')) {
-                  if (input.StartsWith ('e') || input.EndsWith ('e')) return false;
-                  string[] intPart = input.Split ('e');
-                  if (intPart[0].Length == 1 && intPart[0].Contains ('.')) return false;
-                  if (intPart.Length > 2 || intPart[1].Contains ('.') || !SignCheck (intPart[1])) return false;
-                  if (intPart[0].Contains ('.')) {
-                     if (!DecCheck (intPart[0])) return false;
-                  } else if (!SignCheck (intPart[0])) return false;
-                  return true;
-               } else if (input.Contains ('.')) {
-                  if (!DecCheck (input)) return false;
-               } else {
-                  if (!SignCheck (input)) return false;
-               }
-               return true;
-            }
-            return false;
-         }
-
-         // Check the input is numeric or not.
-         static bool IsNumeric (string input) => input.All (c => char.IsDigit (c) || c == '.' || c == '+' || c == '-' || c == 'e');
-
-         // Check the sign character place for valid conditions.
-         static bool SignCheck (string input) => input.All (c => char.IsDigit (c) || (input.StartsWith ('+') && input.Substring (1).All (char.IsDigit)) && input.Length > 1) ||
-               (input.StartsWith ('-') && input.Substring (1).All (char.IsDigit) && input.Length > 1 && input.IndexOf ('-') == 0);
+         return (sign, output);
       }
       #endregion
    }
