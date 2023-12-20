@@ -5,7 +5,7 @@
 // Program.cs
 // A06: Eight Queens
 // On a standard chessboard 8 queens have to be placed so that no queen can attack any other.
-// As per the rules of chess, the queen can move horizontally, vertically or in a diagonal.
+// As per the rules of chess, the queen can move horizontally, vertically or diagonally.
 // No two queens can be on the same row or column or diagonal.
 // --------------------------------------------------------------------------------------------
 using System;
@@ -47,18 +47,16 @@ namespace Training {
             Console.CursorTop = 2; Console.CursorLeft = 0;
             Console.WriteLine ($"Solution {i} of {sFinalSoln.Count}");
             var soln = sFinalSoln[i - 1];
-            for (int j = 0; j <= 8; j++) {
-               if (j == 0)
-                  Console.WriteLine ("┌───┬───┬───┬───┬───┬───┬───┬───┐");
-               else if (j == 8) {
-                  PlaceQueens (soln[j - 1]);
-                  Console.WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
-               } else {
-                  PlaceQueens (soln[j - 1]);
-                  Console.WriteLine ("├───┼───┼───┼───┼───┼───┼───┼───┤");
-               }
+            Console.WriteLine ("┌───┬───┬───┬───┬───┬───┬───┬───┐");
+            for (int j = 0; j < 7; j++) {
+               PlaceQueens (soln[j]);
+               Console.WriteLine ("├───┼───┼───┼───┼───┼───┼───┼───┤");
             }
-            Console.ReadKey ();
+            PlaceQueens (soln[7]);
+            Console.WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
+            var k=Console.ReadKey(true);
+            while (k.Key is not ConsoleKey.RightArrow and not ConsoleKey.LeftArrow) k = Console.ReadKey (true);
+            if (k.Key == ConsoleKey.LeftArrow) { i -= 2; continue; }
          }
       }
 
@@ -102,12 +100,11 @@ namespace Training {
                } else QueenPosition (row + 1, isUnique);
             }
          }
-
       }
 
-      /// <summary>Rotate the solutions</summary>
+      /// <summary>Rotates the given array at 90 degree</summary>
       /// <param name="soln">Solution array</param>
-      /// <returns>Rotate solution</returns>
+      /// <returns>Rotated solution array</returns>
       static int[] Rotate (int[] soln) {
          int[] tmp = new int[8];
          for (int i = 0; i < 8; i++)
