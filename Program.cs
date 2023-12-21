@@ -45,18 +45,16 @@ namespace Training {
          Console.OutputEncoding = Encoding.UTF8;
          for (int i = 1; i <= sFinalSoln.Count; i++) {
             Console.CursorTop = 2; Console.CursorLeft = 0;
-            Console.WriteLine ($"Solution {i} of {sFinalSoln.Count}");
-            var soln = sFinalSoln[i - 1];
+            Console.WriteLine ($"Solution {(i == 0 ? i + 1 : i),2} of {sFinalSoln.Count}");
+            var soln = i == 0 ? sFinalSoln[i] : sFinalSoln[i - 1];
             Console.WriteLine ("┌───┬───┬───┬───┬───┬───┬───┬───┐");
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 8; j++) {
                PlaceQueens (soln[j]);
-               Console.WriteLine ("├───┼───┼───┼───┼───┼───┼───┼───┤");
+               Console.WriteLine (j == 7 ? "└───┴───┴───┴───┴───┴───┴───┴───┘" : "├───┼───┼───┼───┼───┼───┼───┼───┤");
             }
-            PlaceQueens (soln[7]);
-            Console.WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
-            var k=Console.ReadKey(true);
+            var k = Console.ReadKey (true);
             while (k.Key is not ConsoleKey.RightArrow and not ConsoleKey.LeftArrow) k = Console.ReadKey (true);
-            if (k.Key == ConsoleKey.LeftArrow) { i -= 2; continue; }
+            if (i > 0 && k.Key == ConsoleKey.LeftArrow) { i -= 2; continue; }
          }
       }
 
