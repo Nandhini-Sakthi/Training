@@ -10,6 +10,8 @@
 // --------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -45,9 +47,10 @@ namespace Training {
          Console.OutputEncoding = Encoding.UTF8;
          for (int i = 1; i <= sFinalSoln.Count; i++) {
             Console.CursorTop = 2; Console.CursorLeft = 0;
-            Console.WriteLine ($"Solution {(i == 0 ? i + 1 : i),2} of {sFinalSoln.Count}");
+            Console.Write ($"Solution {(i == 0 ? i + 1 : i)} of {sFinalSoln.Count}");
+            for (int j = 0; j < sFinalSoln.Count.ToString().Length; j++) Console.Write (" ");
             var soln = i == 0 ? sFinalSoln[i] : sFinalSoln[i - 1];
-            Console.WriteLine ("┌───┬───┬───┬───┬───┬───┬───┬───┐");
+            Console.WriteLine ("\n┌───┬───┬───┬───┬───┬───┬───┬───┐");
             for (int j = 0; j < 8; j++) {
                PlaceQueens (soln[j]);
                Console.WriteLine (j == 7 ? "└───┴───┴───┴───┴───┴───┴───┴───┘" : "├───┼───┼───┼───┼───┼───┼───┼───┤");
