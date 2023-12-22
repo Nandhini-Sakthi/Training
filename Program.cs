@@ -10,8 +10,6 @@
 // --------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -45,19 +43,20 @@ namespace Training {
       /// <summary>Display the chessboard with eight queens</summary>
       static void ChessBoard () {
          Console.OutputEncoding = Encoding.UTF8;
-         for (int i = 1; i <= sFinalSoln.Count; i++) {
+         for (int i = 0; i < sFinalSoln.Count;) {
             Console.CursorTop = 2; Console.CursorLeft = 0;
-            Console.Write ($"Solution {(i == 0 ? i + 1 : i)} of {sFinalSoln.Count}");
-            for (int j = 0; j < sFinalSoln.Count.ToString().Length; j++) Console.Write (" ");
-            var soln = i == 0 ? sFinalSoln[i] : sFinalSoln[i - 1];
+            Console.Write ($"Solution {i + 1} of {sFinalSoln.Count} ");
+            var soln = sFinalSoln[i];
             Console.WriteLine ("\n┌───┬───┬───┬───┬───┬───┬───┬───┐");
             for (int j = 0; j < 8; j++) {
                PlaceQueens (soln[j]);
-               Console.WriteLine (j == 7 ? "└───┴───┴───┴───┴───┴───┴───┴───┘" : "├───┼───┼───┼───┼───┼───┼───┼───┤");
+               if (j != 7) Console.WriteLine ("├───┼───┼───┼───┼───┼───┼───┼───┤");
             }
+            Console.WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
             var k = Console.ReadKey (true);
-            while (k.Key is not ConsoleKey.RightArrow and not ConsoleKey.LeftArrow) k = Console.ReadKey (true);
-            if (i > 0 && k.Key == ConsoleKey.LeftArrow) { i -= 2; continue; }
+            while (k.Key != ConsoleKey.RightArrow && k.Key != ConsoleKey.LeftArrow) k = Console.ReadKey (true);
+            if (k.Key == ConsoleKey.LeftArrow && i > 0) i--;
+            else if (k.Key == ConsoleKey.RightArrow && i < sFinalSoln.Count) i++;
          }
       }
 
