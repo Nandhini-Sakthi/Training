@@ -8,16 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="a08.Evaluator\**" />
     <Compile Remove="dotCover.Output\**" />
     <Compile Remove="TestList\**" />
     <Compile Remove="TestProject1\**" />
     <Compile Remove="TestQueue\**" />
     <Compile Remove="TestStack\**" />
+    <EmbeddedResource Remove="a08.Evaluator\**" />
     <EmbeddedResource Remove="dotCover.Output\**" />
     <EmbeddedResource Remove="TestList\**" />
     <EmbeddedResource Remove="TestProject1\**" />
     <EmbeddedResource Remove="TestQueue\**" />
     <EmbeddedResource Remove="TestStack\**" />
+    <None Remove="a08.Evaluator\**" />
     <None Remove="dotCover.Output\**" />
     <None Remove="TestList\**" />
     <None Remove="TestProject1\**" />

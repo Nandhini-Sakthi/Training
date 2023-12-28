@@ -6,15 +6,15 @@
 // Program to implement double.Parse method that takes a string and returns a double.
 // ------------------------------------------------------------------------------------------------
 using System;
+using System.Linq;
 
 namespace Training {
+   #region class Program ---------------------------------------------------------------------------------
    /// <summary>Class program</summary>
-  #region Program ---------------------------------------------------------------------------------
    class Program {
       #region Method ------------------------------------------------
       /// <summary>Display output</summary>
-      /// <param name="args"></param>
-      static void Main (string[] args) {
+      static void Main () {
          for (; ; ) {
             Console.WriteLine ("Enter a number:");
             string input = Console.ReadLine ();
@@ -26,7 +26,7 @@ namespace Training {
    }
    #endregion
 
-   #region MDouble --------------------------------------------------------------------------------
+   #region class MDouble --------------------------------------------------------------------------------
    /// <summary>Double precision floating point number representation</summary>
    public class MDouble {
       #region Method ------------------------------------------------
@@ -36,10 +36,9 @@ namespace Training {
       /// <returns>Value after exp</returns>
       static bool AfterExp (string input, out double exp) {
          exp = 0;
-         double sign;
          if (input.Contains ('.')) return false;
-         (sign, input) = SignCheck (input);
-         if (!NumericPart (input, out double intPart)) return false;
+         (double sign, string result) = SignCheck (input);
+         if (!NumericPart (result, out double intPart)) return false;
          exp = sign * intPart;
          return true;
       }
@@ -50,9 +49,9 @@ namespace Training {
       /// <returns>Value before exp</returns>
       static bool BeforeExp (string input, out double baseNum) {
          baseNum = 0;
-         double sign;
-         (sign, input) = SignCheck (input);
-         string[] parts = input.Split ('.');
+         if (input.Length == 1 && new[] { '.', '+', '-' }.Any (input.Contains)) return false;
+         (double sign, string result) = SignCheck (input);
+         string[] parts = result.Split ('.');
          if (parts.Length > 2) return false;
          if (!NumericPart (parts[0], out double intPart)) return false;
          double deciPart = 0;
@@ -67,8 +66,7 @@ namespace Training {
       /// <param name="decPart">Decimal part</param>
       /// <returns>Value of decimal part</returns>
       static bool DecimalPart (string input, out double decPart) {
-         decPart = 0;
-         double f = 0.1;
+         decPart = 0; double f = 0.1;
          foreach (char c in input) {
             if (!char.IsDigit (c)) return false;
             decPart += (c - '0') * f;
@@ -99,14 +97,11 @@ namespace Training {
          // Remove the space and change the upper character to lower character
          input = input.Trim ().ToLower ();
          if (string.IsNullOrWhiteSpace (input) || input.StartsWith ('e') || input.EndsWith ('e')) return false;
-         if (input.Contains ('e')) {
-            // Split the input using char e
-            string[] parts = input.Split ('e');
-            if (parts.Length == 2 && BeforeExp (parts[0], out double baseNum) && AfterExp (parts[1], out double exp)) {
-               res = baseNum * Math.Pow (10, exp);
-               return true;
-            }
-         } else return BeforeExp (input, out res);
+         string[] parts = input.Split ('e');
+         if (parts.Length == 2 && BeforeExp (parts[0], out double baseNum) && AfterExp (parts[1], out double exp)) {
+            res = baseNum * Math.Pow (10, exp);
+            return true;
+         } else if (parts.Length == 1) return BeforeExp (input, out res);
          return false;
       }
 
@@ -115,7 +110,7 @@ namespace Training {
       /// <returns>Sign and input value</returns>
       static (double, string) SignCheck (string input) {
          double sign = 1; string output = input;
-         if (input[0] == '-' || input[0] == '+') {
+         if (input[0] is '-' or '+') {
             sign = (input[0] == '-') ? -1 : 1;
             output = input.Substring (1);
          }
