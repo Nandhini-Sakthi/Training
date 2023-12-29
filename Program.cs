@@ -19,8 +19,8 @@ namespace Training {
    class Program {
       #region Methods ---------------------------------------------
       /// <summary>Prints Eight Queens</summary>
-      /// <param name="args">Arguments</param>
-      static void Main (string[] args) {
+      static void Main () {
+         Console.OutputEncoding = Encoding.UTF8;
          Console.WriteLine ("Press U for unique solution to display else press any key for all solution: ");
          bool isUnique = false;
          if (Console.ReadKey (true).Key == ConsoleKey.U) isUnique = true;
@@ -42,7 +42,6 @@ namespace Training {
 
       /// <summary>Display the chessboard with eight queens</summary>
       static void ChessBoard () {
-         Console.OutputEncoding = Encoding.UTF8;
          for (int i = 0; i < sFinalSoln.Count;) {
             Console.CursorTop = 2; Console.CursorLeft = 0;
             Console.Write ($"Solution {i + 1} of {sFinalSoln.Count} ");
@@ -53,10 +52,11 @@ namespace Training {
                if (j != 7) Console.WriteLine ("├───┼───┼───┼───┼───┼───┼───┼───┤");
             }
             Console.WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
-            var k = Console.ReadKey (true);
-            while (k.Key != ConsoleKey.RightArrow && k.Key != ConsoleKey.LeftArrow) k = Console.ReadKey (true);
-            if (k.Key == ConsoleKey.LeftArrow && i > 0) i--;
-            else if (k.Key == ConsoleKey.RightArrow && i < sFinalSoln.Count) i++;
+            ConsoleKeyInfo k;
+            do {
+               k = Console.ReadKey (true);
+               if (k.Key == ConsoleKey.LeftArrow) { if (i > 0) i--; } else i++;
+            } while (k.Key != ConsoleKey.RightArrow && k.Key != ConsoleKey.LeftArrow);
          }
       }
 
@@ -72,8 +72,7 @@ namespace Training {
       static bool IsSafe (int row, int col) {
          for (int prevRow = 0; prevRow < row; prevRow++) {
             var prevCol = sColumn[prevRow];
-            if (col == prevCol ||
-               Math.Abs (row - prevRow) == Math.Abs (col - prevCol)) return false;
+            if (col == prevCol || Math.Abs (row - prevRow) == Math.Abs (col - prevCol)) return false;
          }
          return true;
       }
@@ -81,8 +80,7 @@ namespace Training {
       /// <summary>If the column is safe,print queen or print space</summary>
       /// <param name="qPos">Column to print queen or space</param>
       static void PlaceQueens (int qPos) {
-         for (int j = 0; j < 8; j++)
-            Console.Write ($"│ {(j == qPos ? "♕" : " ")} ");
+         for (int j = 0; j < 8; j++) Console.Write ($"│ {(j == qPos ? "♕" : " ")} ");
          Console.WriteLine ("│");
       }
 
@@ -107,8 +105,7 @@ namespace Training {
       /// <returns>Rotated solution array</returns>
       static int[] Rotate (int[] soln) {
          int[] tmp = new int[8];
-         for (int i = 0; i < 8; i++)
-            tmp[soln[i]] = 7 - i;
+         for (int i = 0; i < 8; i++) tmp[soln[i]] = 7 - i;
          return tmp;
       }
       #endregion
