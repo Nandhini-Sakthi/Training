@@ -55,7 +55,8 @@ namespace Training {
             ConsoleKeyInfo k;
             do {
                k = Console.ReadKey (true);
-               if (k.Key == ConsoleKey.LeftArrow) { if (i > 0) i--; } else i++;
+               if (k.Key == ConsoleKey.LeftArrow) { if (i > 0) i--; } 
+               else if (k.Key == ConsoleKey.RightArrow) i++;
             } while (k.Key != ConsoleKey.RightArrow && k.Key != ConsoleKey.LeftArrow);
          }
       }
