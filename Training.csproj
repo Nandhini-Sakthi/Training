@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="a08.Evaluator\**" />
+    <Compile Remove="TestProject1\**" />
+    <EmbeddedResource Remove="a08.Evaluator\**" />
+    <EmbeddedResource Remove="TestProject1\**" />
+    <None Remove="a08.Evaluator\**" />
+    <None Remove="TestProject1\**" />
+  </ItemGroup>
+
 </Project>
