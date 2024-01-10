@@ -1,10 +1,34 @@
 ﻿namespace Eval;
 
+#region EvalException --------------------------------------------------------------------------
+/// <summary>Class EvalException</summary>
 public class EvalException : Exception {
    public EvalException (string message) : base (message) { }
 }
+#endregion
 
+#region Class Evaluator ------------------------------------------------------------------------
+/// <summary>Class Evaluator</summary>
 public class Evaluator {
+   #region Property-----------------------------------------------
+   public int BasePriority { get; set; }
+   #endregion
+
+   #region Method ------------------------------------------------
+   /// <summary>Apply the operator with its corresponding operands</summary>
+   void ApplyOperator () {
+      var op = mOperators.Pop ();
+      var f1 = mOperands.Pop ();
+      if (op is TOpArithmetic arith) {
+         if (mOperands.Count == 0) throw new EvalException ("Too few operands");
+         var f2 = mOperands.Pop ();
+         mOperands.Push (arith.Evaluate (f2, f1));
+      } else mOperands.Push (op is TOpUnary u ? u.Evaluate (f1) : ((TOpFunction)op).Evaluate (f1));
+   }
+
+   /// <summary>Evaluate the expressions</summary>
+   /// <param name="input">Expression input</param>
+   /// <returns>Returns a double after evaluating</returns>
    public double Evaluate (string text) {
       Reset ();
       List<Token> tokens = new ();
@@ -15,7 +39,6 @@ public class Evaluator {
          if (token is TError err) throw new EvalException (err.Message);
          tokens.Add (token);
       }
-
       // Check if this is a variable assignment
       TVariable? tVariable = null;
       if (tokens.Count > 2 && tokens[0] is TVariable tvar && tokens[1] is TOpArithmetic { Op: '=' }) {
@@ -32,14 +55,17 @@ public class Evaluator {
       return f;
    }
 
-   public int BasePriority { get; set; }
-
+   /// <summary>Gets the assigned variable</summary>
+   /// <param name="name">Variable name</param>
+   /// <returns>Returns the value of the variable</returns>
+   /// <exception cref="EvalException">Throws exception if variable is unknown</exception>
    public double GetVariable (string name) {
       if (mVars.TryGetValue (name, out double f)) return f;
       throw new EvalException ($"Unknown variable: {name}");
    }
-   readonly Dictionary<string, double> mVars = new ();
 
+   /// <summary>Push operands and operators in individual stack based on its priority</summary>
+   /// <param name="token">Each token</param>
    void Process (Token token) {
       switch (token) {
          case TNumber num:
@@ -57,21 +83,19 @@ public class Evaluator {
             throw new EvalException ($"Unknown token: {token}");
       }
    }
-   readonly Stack<double> mOperands = new ();
-   readonly Stack<TOperator> mOperators = new ();
 
-   void ApplyOperator () {
-      var op = mOperators.Pop ();
-      var f1 = mOperands.Pop ();
-      if (op is TOpArithmetic arith) {
-         if (mOperands.Count == 0) throw new EvalException ("Too few operands");
-         var f2 = mOperands.Pop ();
-         mOperands.Push (arith.Evaluate (f2, f1));
-      } else mOperands.Push (op is TOpUnary u ? u.Evaluate (f1) : ((TOpFunction)op).Evaluate (f1));
-   }
+   /// <summary>Resets the evaluator</summary>
    void Reset () {
       mOperands.Clear ();
       mOperators.Clear ();
       BasePriority = 0;
    }
+   #endregion
+
+   #region private data-------------------------------------------
+   readonly Stack<double> mOperands = new ();
+   readonly Stack<TOperator> mOperators = new ();
+   readonly Dictionary<string, double> mVars = new ();
+   #endregion
 }
+#endregion
