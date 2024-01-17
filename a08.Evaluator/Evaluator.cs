@@ -83,7 +83,9 @@ public class Evaluator {
             throw new EvalException ($"Unknown token: {token}");
       }
    }
+   #endregion
 
+   #region implementation ----------------------------------------
    /// <summary>Resets the evaluator</summary>
    void Reset () {
       mOperands.Clear ();
