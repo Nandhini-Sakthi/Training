@@ -11,7 +11,7 @@ namespace Training {
    public class UnitTest1 {
       [TestMethod]
       public void TestMethod1 () {
-         var sTests = new Dictionary<string, bool> {
+         var tests = new Dictionary<string, bool> {
                 { @"Cz:\abc\def\r.txt", false },
                 { @"C:\abc\def\r.txt", true },
                 { @"C:\Readme.txt", false },
@@ -31,10 +31,10 @@ namespace Training {
                 { @"C:\work\r.txt", true },
                 { @"C:\abc\def\r.txt.txt", false },
                 { @"C:\Program Files\<>*&^%$#@!.txt", false },
-                { @"C:\\work~\\r.txt~", false }
+                { @"C:\work~\r.txt~", false }
          };
-         foreach (var testCase in sTests) {
-            bool parseResult = FileParse.FileNameParse (testCase.Key, out _);
+         foreach (var testCase in tests) {
+            bool parseResult = new FileParse ().FileNameParse (testCase.Key, out _);
             Assert.AreEqual (testCase.Value, parseResult);
          }
       }

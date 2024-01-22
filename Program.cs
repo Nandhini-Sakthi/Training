@@ -8,8 +8,8 @@
 // ------------------------------------------------------------------------------------------------
 using System;
 using static System.Console;
-namespace Training {
 
+namespace Training {
    #region Class Program -----------------------------------------------------------------------
    /// <summary>Program</summary>
    public class Program {
@@ -18,12 +18,13 @@ namespace Training {
       static void Main () {
          WriteLine ("Enter a file path:");
          string s = ReadLine ()!;
-         if (FileParse.FileNameParse (s, out (string driveLetter, string folderPath, string fileName, string extension) res)) {
-            WriteLine ($"Drive letter: {res.driveLetter}");
-            WriteLine ($"Folder Path: {res.folderPath}");
-            WriteLine ($"File name: {res.fileName}");
-            WriteLine ($"Extension: {res.extension}");
-         } else WriteLine ("Enter a valid file path name");
+         FileParse fileParser = new FileParse ();
+         if (fileParser.FileNameParse (s, out var res)) {
+            WriteLine ($"Drive Letter: {res.drive}");
+            WriteLine ($"Folder Path: {res.folder}");
+            WriteLine ($"File Name: {res.file}");
+            WriteLine ($"Extension: {res.ext}");
+         } else WriteLine ("Enter a valid file path name.");
       }
       #endregion
    }
@@ -35,12 +36,9 @@ namespace Training {
       #region Methods --------------------------------------------
       /// <summary>When given a string it parses it into parts and returns the components of file path</summary>
       /// <param name="input">Given string</param>
-      /// <param name="driveLetter">Drive letter parsed</param>
-      /// <param name="folderPath">Folder path parsed</param>
-      /// <param name="fileName">File name parsed</param>
-      /// <param name="extension">File extension</param>
+      /// <param name="res">Tuple containing drive, folder, file, and ext</param>
       /// <returns>True if parsing was successful; otherwise, false</returns>
-      public static bool FileNameParse (string input, out (string drive,string folder,string file,string ext)res) {
+      public bool FileNameParse (string input, out (string drive, string folder, string file, string ext) res) {
          State s = State.A;
          Action none = () => { }, todo;
          string folder = "", drive = "", file = "", ext = "";
@@ -65,11 +63,11 @@ namespace Training {
             return true;
          } else {
             res = ("", "", "", "");
-            return false;  
+            return false;
          }
       }
 
-      /// <summary>States invloved
+      /// <summary>States involved
       /// see file://D:/Work/statemachinedia.png</summary>
       public enum State { A, B, C, D, E, F, G, H, I, J, Z };
       #endregion
