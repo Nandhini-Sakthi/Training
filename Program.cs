@@ -16,10 +16,10 @@ namespace Training {
    }
    #endregion
 
-   #region class  TDEndQueue -------------------------------------------------------------------
+   #region class  TDeque -------------------------------------------------------------------
    /// <summary>Double ended queue</summary>
    /// <typeparam name="T">Datatype</typeparam>
-   public class TDEndQueue<T> {
+   public class TDeque<T> {
       #region Property -------------------------------------------
       /// <summary>Gets the capacity of the array</summary>
       public int Capacity => mArray.Length;
@@ -75,8 +75,22 @@ namespace Training {
 
       /// <summary>Exception handling</summary>
       /// <exception cref="InvalidOperationException">Throws exception hen the array is empty</exception>
-      public void Exception () {
+      void Exception () {
          if (IsEmpty) throw new InvalidOperationException ("It is an empty queue.");
+      }
+
+      /// <summary>Returns the first element added to the front of the deque</summary>
+      /// <returns>Returns the first element of the queue</returns>
+      public T PeekFront () {
+         Exception ();
+         return mArray[mFront];
+      }
+
+      /// <summary>Returns the first element added to the rear of the deque</summary>
+      /// <returns>Returns the first element of the queue</returns>
+      public T PeekRear () {
+         Exception ();
+         return mArray[(mRear + Capacity - 1) % Capacity];
       }
 
       /// <summary>Resizes the array by increasing the capacity</summary>

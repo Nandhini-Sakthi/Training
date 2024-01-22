@@ -7,7 +7,7 @@
 // This queue can enqueue as well as dequeue elements from both the ends.
 // ------------------------------------------------------------------------------------------------
 using Training;
-namespace TestDEndQueue;
+namespace Deque;
 
 [TestClass]
 public class UnitTest1 {
@@ -35,5 +35,17 @@ public class UnitTest1 {
       Assert.AreEqual (9, mTest.Count);
       Assert.AreEqual (16, mTest.Capacity);
    }
-   TDEndQueue<int> mTest = new ();
+
+   [TestMethod]
+   public void Peek () {
+      Assert.ThrowsException<InvalidOperationException> (() => mTest.PeekFront ());
+      Assert.ThrowsException<InvalidOperationException> (() => mTest.PeekFront ());
+      for (int i = 1; i <= 5; i++) mTest.EnqueueFront (i);
+      Assert.AreEqual (5, mTest.Count);
+      Assert.AreEqual (5, mTest.PeekFront ());
+      for (int i = 6; i <= 10; i++) mTest.EnqueueRear (i);
+      Assert.AreEqual (10, mTest.Count);
+      Assert.AreEqual (10, mTest.PeekRear ());
+   }
+   TDeque<int> mTest = new ();
 }

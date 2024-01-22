@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training", "Training.csproj", "{D10F042D-469F-42EC-AEA1-83151ACCFA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDEndQueue", "TestDEndQueue\TestDEndQueue.csproj", "{CE79387C-0977-4D33-A669-F3DF8224E6CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deque", "TestDEndQueue\Deque.csproj", "{CE79387C-0977-4D33-A669-F3DF8224E6CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
