@@ -33,8 +33,9 @@ namespace Training {
                 { @"C:\Program Files\<>*&^%$#@!.txt", false },
                 { @"C:\work~\r.txt~", false }
          };
+         var fileParse = new FileParse ();
          foreach (var testCase in tests) {
-            bool parseResult = new FileParse ().FileNameParse (testCase.Key, out _);
+            bool parseResult = fileParse.FileNameParse (testCase.Key, out _);
             Assert.AreEqual (testCase.Value, parseResult);
          }
       }
