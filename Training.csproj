@@ -7,4 +7,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="a08.Evaluator\**" />
+    <Compile Remove="FileParse\**" />
+    <Compile Remove="TestDEndQueue\**" />
+    <Compile Remove="TestList\**" />
+    <Compile Remove="TestProject1\**" />
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="a08.Evaluator\**" />
+    <EmbeddedResource Remove="FileParse\**" />
+    <EmbeddedResource Remove="TestDEndQueue\**" />
+    <EmbeddedResource Remove="TestList\**" />
+    <EmbeddedResource Remove="TestProject1\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="a08.Evaluator\**" />
+    <None Remove="FileParse\**" />
+    <None Remove="TestDEndQueue\**" />
+    <None Remove="TestList\**" />
+    <None Remove="TestProject1\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
+
 </Project>
