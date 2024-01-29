@@ -7,14 +7,14 @@ namespace Training {
       #region Method ---------------------------------------------
       //Gets input
       static void Main (string[] args) {
-         ComplexNumber complexNumber1 = new (4, 5);
-         ComplexNumber complexNumber2 = new (2, 3);
+         ComplexNumber c1 = new (4, 5);
+         ComplexNumber c2 = new (2, 3);
          // Addition
-         Console.WriteLine ($"Sum: {ComplexNumber.Add (complexNumber1, complexNumber2)}");
+         Console.WriteLine ($"Sum: {c1 + c2}");
          // Subtraction
-         Console.WriteLine ($"Difference: {ComplexNumber.Sub (complexNumber1, complexNumber2)}");
+         Console.WriteLine ($"Difference: {c1 - c2}");
          // Norm
-         Console.WriteLine ($"Norm of complexNumber1: {complexNumber1.Norm}");
+         Console.WriteLine ($"Norm of complexNumber1: {c1.Norm}");
          #endregion
       }
       #endregion
@@ -41,13 +41,13 @@ namespace Training {
 
       #region Method ---------------------------------------------
       // Addition of two complex numbers
-      public static ComplexNumber Add (ComplexNumber a, ComplexNumber b) => new (a.Real + b.Real, a.Imaginary + b.Imaginary);
+      public static ComplexNumber operator + (ComplexNumber a, ComplexNumber b) => new (a.Real + b.Real, a.Imaginary + b.Imaginary);
 
       // Subtraction of two complex numbers
-      public static ComplexNumber Sub (ComplexNumber a, ComplexNumber b) => new (a.Real - b.Real, a.Imaginary - b.Imaginary);
+      public static ComplexNumber operator - (ComplexNumber a, ComplexNumber b) => new (a.Real - b.Real, a.Imaginary - b.Imaginary);
 
       // Overrides the default ToString method to the ComplexNumber as "Real + Imaginaryi" for conversion.
-      public override string ToString () =>$"{Real} + {Imaginary}i";
+      public override string ToString () => $"{Real} + {Imaginary}i";
       #endregion
    }
    #endregion
